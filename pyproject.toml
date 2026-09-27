@@ -1,0 +1,21 @@
+[project]
+name = "agent-eval-jev"
+version = "0.1.0"
+description = "Evaluate a tool-using AI agent with code checks, a calibrated Jev judge and an optional LLM judge."
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 125
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E731", "E501", "B905"]

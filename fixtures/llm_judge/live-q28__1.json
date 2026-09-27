@@ -1,0 +1,16 @@
+{
+ "case": "live-q28",
+ "repeat": 1,
+ "model": "claude-sonnet-5",
+ "verdict": {
+  "tool_use": true,
+  "grounded": true,
+  "complete": true,
+  "policy": true
+ },
+ "cost_usd": 0.005511199999999999,
+ "api_latency_ms": 5285,
+ "wall_latency_ms": 6659.7,
+ "input_tokens": 1538,
+ "output_tokens": 520
+}

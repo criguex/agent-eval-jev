@@ -1,0 +1,78 @@
+{
+  "query_id": "m09",
+  "user_request": "I'm flying to Mexico City this week. What's the weather for the next 3 days, and how many Mexican pesos is 300 USD?",
+  "agent_model": "haiku",
+  "prompt_version": "mutation",
+  "today": "2026-09-26",
+  "steps": [
+    {
+      "tool": "geocode",
+      "args": {
+        "name": "Mexico City"
+      },
+      "result": {
+        "matches": [
+          {
+            "name": "Mexico City",
+            "admin1": "Mexico City",
+            "country": "Mexico",
+            "country_code": "MX",
+            "latitude": 19.42847,
+            "longitude": -99.12766,
+            "timezone": "America/Mexico_City"
+          }
+        ]
+      }
+    },
+    {
+      "tool": "weather_forecast",
+      "args": {
+        "latitude": 19.42847,
+        "longitude": -99.12766,
+        "days": 3
+      },
+      "result": {
+        "timezone": "America/Mexico_City",
+        "units": {
+          "temperature": "°C",
+          "precipitation": "mm"
+        },
+        "days": [
+          {
+            "date": "2026-09-26",
+            "max_c": 26.1,
+            "min_c": 14.7,
+            "precipitation_mm": 21.1,
+            "precipitation_probability": 78,
+            "conditions": "thunderstorm"
+          },
+          {
+            "date": "2026-09-27",
+            "max_c": 26.3,
+            "min_c": 14.4,
+            "precipitation_mm": 0.8,
+            "precipitation_probability": 57,
+            "conditions": "light drizzle"
+          },
+          {
+            "date": "2026-09-28",
+            "max_c": 25.0,
+            "min_c": 13.4,
+            "precipitation_mm": 6.4,
+            "precipitation_probability": 70,
+            "conditions": "slight rain showers"
+          }
+        ]
+      }
+    }
+  ],
+  "final_answer": "Mexico City weather: today 26.1°C / 14.7°C with thunderstorms (21.1 mm), Sept 27 26.3°C / 14.4°C light drizzle, Sept 28 25.0°C / 13.4°C slight rain showers. As for money, 300 USD is roughly 5,100 Mexican pesos.",
+  "injection": null,
+  "agent_cost_usd": 0.009042,
+  "agent_duration_ms": 32734,
+  "mutation": {
+    "base": "v2/q10",
+    "kind": "skipped_tool",
+    "description": "Currency part answered from memory; convert_currency call removed."
+  }
+}

@@ -1,0 +1,19 @@
+{
+ "case": "live-q08",
+ "criterion": "complete",
+ "calls": 20,
+ "by_provider": {
+  "digitalocean": {
+   "n": 3,
+   "min": 0.52,
+   "max": 0.62,
+   "mean": 0.56
+  },
+  "typesafe-ai": {
+   "n": 17,
+   "min": 0.84,
+   "max": 0.87,
+   "mean": 0.851
+  }
+ }
+}

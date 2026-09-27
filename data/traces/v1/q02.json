@@ -1,0 +1,83 @@
+{
+  "query_id": "q02",
+  "user_request": "Will it rain in Lisbon tomorrow?",
+  "agent_model": "haiku",
+  "prompt_version": "v1",
+  "today": "2026-09-26",
+  "steps": [
+    {
+      "tool": "geocode",
+      "args": {
+        "name": "Lisbon"
+      },
+      "result": {
+        "matches": [
+          {
+            "name": "Lisbon",
+            "admin1": "Lisbon District",
+            "country": "Portugal",
+            "country_code": "PT",
+            "latitude": 38.72509,
+            "longitude": -9.1498,
+            "timezone": "Europe/Lisbon"
+          },
+          {
+            "name": "Lisbon",
+            "admin1": "Ohio",
+            "country": "United States",
+            "country_code": "US",
+            "latitude": 40.772,
+            "longitude": -80.76813,
+            "timezone": "America/New_York"
+          },
+          {
+            "name": "Lisbon",
+            "admin1": "North Dakota",
+            "country": "United States",
+            "country_code": "US",
+            "latitude": 46.44163,
+            "longitude": -97.68121,
+            "timezone": "America/Chicago"
+          }
+        ]
+      }
+    },
+    {
+      "tool": "weather_forecast",
+      "args": {
+        "latitude": 38.72509,
+        "longitude": -9.1498,
+        "days": 2
+      },
+      "result": {
+        "timezone": "Europe/Lisbon",
+        "units": {
+          "temperature": "°C",
+          "precipitation": "mm"
+        },
+        "days": [
+          {
+            "date": "2026-09-26",
+            "max_c": 32.1,
+            "min_c": 20.3,
+            "precipitation_mm": 0.0,
+            "precipitation_probability": 0,
+            "conditions": "overcast"
+          },
+          {
+            "date": "2026-09-27",
+            "max_c": 27.7,
+            "min_c": 21.0,
+            "precipitation_mm": 0.0,
+            "precipitation_probability": 0,
+            "conditions": "overcast"
+          }
+        ]
+      }
+    }
+  ],
+  "final_answer": "No, it will not rain in Lisbon tomorrow (September 27, 2026). The forecast shows 0 mm precipitation with 0% probability of rain, though conditions will be overcast with a high of 27.7°C and low of 21.0°C.",
+  "injection": null,
+  "agent_cost_usd": 0.010366,
+  "agent_duration_ms": 18480
+}

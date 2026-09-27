@@ -1,0 +1,256 @@
+{
+  "query_id": "q11",
+  "user_request": "Planning a trip to Madrid: are there Spanish public holidays in October 2026, and what's the weather for the next 2 days?",
+  "agent_model": "haiku",
+  "prompt_version": "v2",
+  "today": "2026-09-26",
+  "steps": [
+    {
+      "tool": "geocode",
+      "args": {
+        "name": "Madrid"
+      },
+      "result": {
+        "matches": [
+          {
+            "name": "Madrid",
+            "admin1": "Madrid",
+            "country": "Spain",
+            "country_code": "ES",
+            "latitude": 40.4165,
+            "longitude": -3.70256,
+            "timezone": "Europe/Madrid"
+          },
+          {
+            "name": "Madrid",
+            "admin1": "Cundinamarca",
+            "country": "Colombia",
+            "country_code": "CO",
+            "latitude": 4.73245,
+            "longitude": -74.26419,
+            "timezone": "America/Bogota"
+          },
+          {
+            "name": "Madrid",
+            "admin1": "Caraga",
+            "country": "Philippines",
+            "country_code": "PH",
+            "latitude": 9.26211,
+            "longitude": 125.96437,
+            "timezone": "Asia/Manila"
+          }
+        ]
+      }
+    },
+    {
+      "tool": "public_holidays",
+      "args": {
+        "country_code": "ES",
+        "year": 2026
+      },
+      "result": {
+        "country_code": "ES",
+        "year": 2026,
+        "holidays": [
+          {
+            "date": "2026-01-01",
+            "name": "New Year's Day",
+            "local_name": "Año Nuevo"
+          },
+          {
+            "date": "2026-01-06",
+            "name": "Epiphany",
+            "local_name": "Día de Reyes / Epifanía del Señor"
+          },
+          {
+            "date": "2026-02-28",
+            "name": "Day of Andalucía",
+            "local_name": "Día de Andalucía"
+          },
+          {
+            "date": "2026-03-01",
+            "name": "Day of the Balearic Islands",
+            "local_name": "Dia de les Illes Balears"
+          },
+          {
+            "date": "2026-04-02",
+            "name": "Maundy Thursday",
+            "local_name": "Jueves Santo"
+          },
+          {
+            "date": "2026-04-03",
+            "name": "Good Friday",
+            "local_name": "Viernes Santo"
+          },
+          {
+            "date": "2026-04-06",
+            "name": "Easter Monday",
+            "local_name": "Lunes de Pascua"
+          },
+          {
+            "date": "2026-04-23",
+            "name": "Castile and León Day",
+            "local_name": "Día de Castilla y León"
+          },
+          {
+            "date": "2026-04-23",
+            "name": "Day of Aragón",
+            "local_name": "San Jorge (Día de Aragón)"
+          },
+          {
+            "date": "2026-05-01",
+            "name": "Labour Day",
+            "local_name": "Fiesta del trabajo"
+          },
+          {
+            "date": "2026-05-02",
+            "name": "Day of Madrid",
+            "local_name": "Fiesta de la Comunidad de Madrid"
+          },
+          {
+            "date": "2026-05-17",
+            "name": "Galician Literature Day",
+            "local_name": "Día das Letras Galegas"
+          },
+          {
+            "date": "2026-05-30",
+            "name": "Day of the Canary Islands",
+            "local_name": "Día de Canarias"
+          },
+          {
+            "date": "2026-05-31",
+            "name": "Day of Castilla-La Mancha",
+            "local_name": "Día de la Región Castilla-La Mancha"
+          },
+          {
+            "date": "2026-06-04",
+            "name": "Corpus Christi",
+            "local_name": "Corpus Christi"
+          },
+          {
+            "date": "2026-06-09",
+            "name": "Day of La Rioja",
+            "local_name": "Día de La Rioja"
+          },
+          {
+            "date": "2026-06-09",
+            "name": "Day of Murcia",
+            "local_name": "Día de la Región de Murcia"
+          },
+          {
+            "date": "2026-06-24",
+            "name": "St. John's Day",
+            "local_name": "Sant Joan"
+          },
+          {
+            "date": "2026-07-25",
+            "name": "Santiago Apóstol",
+            "local_name": "Santiago Apóstol"
+          },
+          {
+            "date": "2026-07-28",
+            "name": "Day of the Cantabrian Institutions",
+            "local_name": "Día de las Instituciones de Cantabria"
+          },
+          {
+            "date": "2026-08-15",
+            "name": "Assumption",
+            "local_name": "Asunción"
+          },
+          {
+            "date": "2026-09-08",
+            "name": "Day of Asturias",
+            "local_name": "Día de Asturias"
+          },
+          {
+            "date": "2026-09-08",
+            "name": "Day of Extremadura",
+            "local_name": "Día de Extremadura"
+          },
+          {
+            "date": "2026-09-11",
+            "name": "National Day of Catalonia",
+            "local_name": "Diada Nacional de Catalunya"
+          },
+          {
+            "date": "2026-09-15",
+            "name": "Feast of Our Lady of Bien Aparecida",
+            "local_name": "Festividad de la Bien Aparecida"
+          },
+          {
+            "date": "2026-10-09",
+            "name": "Day of the Valencian Community",
+            "local_name": "Dia de la Comunitat Valenciana"
+          },
+          {
+            "date": "2026-10-12",
+            "name": "National Day of Spain",
+            "local_name": "Fiesta Nacional de España"
+          },
+          {
+            "date": "2026-11-01",
+            "name": "All Saints Day",
+            "local_name": "Día de todos los Santos"
+          },
+          {
+            "date": "2026-12-06",
+            "name": "Constitution Day",
+            "local_name": "Día de la Constitución"
+          },
+          {
+            "date": "2026-12-08",
+            "name": "Immaculate Conception",
+            "local_name": "Inmaculada Concepción"
+          },
+          {
+            "date": "2026-12-25",
+            "name": "Christmas Day",
+            "local_name": "Navidad"
+          },
+          {
+            "date": "2026-12-26",
+            "name": "St. Stephen's Day",
+            "local_name": "Feast of Saint Stephen"
+          }
+        ]
+      }
+    },
+    {
+      "tool": "weather_forecast",
+      "args": {
+        "latitude": 40.4165,
+        "longitude": -3.70256,
+        "days": 2
+      },
+      "result": {
+        "timezone": "Europe/Madrid",
+        "units": {
+          "temperature": "°C",
+          "precipitation": "mm"
+        },
+        "days": [
+          {
+            "date": "2026-09-26",
+            "max_c": 33.0,
+            "min_c": 17.4,
+            "precipitation_mm": 0.0,
+            "precipitation_probability": 0,
+            "conditions": "overcast"
+          },
+          {
+            "date": "2026-09-27",
+            "max_c": 30.4,
+            "min_c": 19.3,
+            "precipitation_mm": 0.0,
+            "precipitation_probability": 0,
+            "conditions": "overcast"
+          }
+        ]
+      }
+    }
+  ],
+  "final_answer": "Great! Here's what I found for your Madrid trip:\n\n**Spanish Public Holidays in October 2026:**\nThere are 2 public holidays in October:\n- **October 9**: Day of the Valencian Community (Día de la Comunitat Valenciana)\n- **October 12**: National Day of Spain (Fiesta Nacional de España)\n\n**Weather Forecast for the Next 2 Days in Madrid:**\n- **Today (Sept 26)**: Overcast, high 33°C, low 17.4°C, no precipitation\n- **Tomorrow (Sept 27)**: Overcast, high 30.4°C, low 19.3°C, no precipitation\n\nLooks like warm, dry conditions ahead!",
+  "injection": null,
+  "agent_cost_usd": 0.011993,
+  "agent_duration_ms": 33309
+}

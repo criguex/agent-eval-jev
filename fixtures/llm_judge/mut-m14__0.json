@@ -1,0 +1,16 @@
+{
+ "case": "mut-m14",
+ "repeat": 0,
+ "model": "claude-sonnet-5",
+ "verdict": {
+  "tool_use": true,
+  "grounded": false,
+  "complete": true,
+  "policy": true
+ },
+ "cost_usd": 0.0064738,
+ "api_latency_ms": 2570,
+ "wall_latency_ms": 4177.4,
+ "input_tokens": 1776,
+ "output_tokens": 241
+}

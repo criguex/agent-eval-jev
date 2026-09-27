@@ -1,0 +1,181 @@
+{
+  "query_id": "q14",
+  "user_request": "Is Canada's Thanksgiving a public holiday in 2026, and on what date?",
+  "agent_model": "haiku",
+  "prompt_version": "v2",
+  "today": "2026-09-26",
+  "steps": [
+    {
+      "tool": "public_holidays",
+      "args": {
+        "country_code": "CA",
+        "year": 2026
+      },
+      "result": {
+        "country_code": "CA",
+        "year": 2026,
+        "holidays": [
+          {
+            "date": "2026-01-01",
+            "name": "New Year's Day",
+            "local_name": "New Year's Day"
+          },
+          {
+            "date": "2026-02-16",
+            "name": "Louis Riel Day",
+            "local_name": "Louis Riel Day"
+          },
+          {
+            "date": "2026-02-16",
+            "name": "Islander Day",
+            "local_name": "Islander Day"
+          },
+          {
+            "date": "2026-02-16",
+            "name": "Heritage Day",
+            "local_name": "Heritage Day"
+          },
+          {
+            "date": "2026-02-16",
+            "name": "Family Day",
+            "local_name": "Family Day"
+          },
+          {
+            "date": "2026-03-17",
+            "name": "Saint Patrick's Day",
+            "local_name": "Saint Patrick's Day"
+          },
+          {
+            "date": "2026-04-03",
+            "name": "Good Friday",
+            "local_name": "Good Friday"
+          },
+          {
+            "date": "2026-04-06",
+            "name": "Easter Monday",
+            "local_name": "Easter Monday"
+          },
+          {
+            "date": "2026-04-23",
+            "name": "Saint George's Day",
+            "local_name": "Saint George's Day"
+          },
+          {
+            "date": "2026-05-18",
+            "name": "National Patriots' Day",
+            "local_name": "National Patriots' Day"
+          },
+          {
+            "date": "2026-05-18",
+            "name": "Victoria Day",
+            "local_name": "Victoria Day"
+          },
+          {
+            "date": "2026-06-21",
+            "name": "National Aboriginal Day",
+            "local_name": "National Aboriginal Day"
+          },
+          {
+            "date": "2026-06-24",
+            "name": "Discovery Day",
+            "local_name": "Discovery Day"
+          },
+          {
+            "date": "2026-06-24",
+            "name": "National Holiday",
+            "local_name": "Fête nationale du Québec"
+          },
+          {
+            "date": "2026-07-01",
+            "name": "Canada Day",
+            "local_name": "Canada Day"
+          },
+          {
+            "date": "2026-07-12",
+            "name": "Orangemen's Day",
+            "local_name": "Orangemen's Day"
+          },
+          {
+            "date": "2026-08-03",
+            "name": "Civic Holiday",
+            "local_name": "Civic Holiday"
+          },
+          {
+            "date": "2026-08-03",
+            "name": "British Columbia Day",
+            "local_name": "British Columbia Day"
+          },
+          {
+            "date": "2026-08-03",
+            "name": "Heritage Day",
+            "local_name": "Heritage Day"
+          },
+          {
+            "date": "2026-08-03",
+            "name": "New Brunswick Day",
+            "local_name": "New Brunswick Day"
+          },
+          {
+            "date": "2026-08-03",
+            "name": "Natal Day",
+            "local_name": "Natal Day"
+          },
+          {
+            "date": "2026-08-03",
+            "name": "Saskatchewan Day",
+            "local_name": "Saskatchewan Day"
+          },
+          {
+            "date": "2026-08-17",
+            "name": "Gold Cup Parade Day",
+            "local_name": "Gold Cup Parade Day"
+          },
+          {
+            "date": "2026-08-17",
+            "name": "Discovery Day",
+            "local_name": "Discovery Day"
+          },
+          {
+            "date": "2026-09-07",
+            "name": "Labour Day",
+            "local_name": "Labour Day"
+          },
+          {
+            "date": "2026-09-30",
+            "name": "National Day for Truth and Reconciliation",
+            "local_name": "National Day for Truth and Reconciliation"
+          },
+          {
+            "date": "2026-10-12",
+            "name": "Thanksgiving",
+            "local_name": "Thanksgiving"
+          },
+          {
+            "date": "2026-11-11",
+            "name": "Armistice Day",
+            "local_name": "Armistice Day"
+          },
+          {
+            "date": "2026-11-11",
+            "name": "Remembrance Day",
+            "local_name": "Remembrance Day"
+          },
+          {
+            "date": "2026-12-25",
+            "name": "Christmas Day",
+            "local_name": "Christmas Day"
+          },
+          {
+            "date": "2026-12-26",
+            "name": "St. Stephen's Day",
+            "local_name": "Boxing Day"
+          }
+        ]
+      }
+    }
+  ],
+  "final_answer": "Yes, Canada's Thanksgiving is a public holiday in 2026. According to the public holidays data for Canada, it falls on October 12, 2026.",
+  "injection": null,
+  "agent_cost_usd": 0.004201,
+  "agent_duration_ms": 12727
+}

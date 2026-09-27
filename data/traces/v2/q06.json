@@ -1,0 +1,121 @@
+{
+  "query_id": "q06",
+  "user_request": "When is the next public holiday in Germany after today?",
+  "agent_model": "haiku",
+  "prompt_version": "v2",
+  "today": "2026-09-26",
+  "steps": [
+    {
+      "tool": "public_holidays",
+      "args": {
+        "country_code": "DE",
+        "year": 2026
+      },
+      "result": {
+        "country_code": "DE",
+        "year": 2026,
+        "holidays": [
+          {
+            "date": "2026-01-01",
+            "name": "New Year's Day",
+            "local_name": "Neujahr"
+          },
+          {
+            "date": "2026-01-06",
+            "name": "Epiphany",
+            "local_name": "Heilige Drei Könige"
+          },
+          {
+            "date": "2026-03-08",
+            "name": "International Women's Day",
+            "local_name": "Internationaler Frauentag"
+          },
+          {
+            "date": "2026-04-03",
+            "name": "Good Friday",
+            "local_name": "Karfreitag"
+          },
+          {
+            "date": "2026-04-05",
+            "name": "Easter Sunday",
+            "local_name": "Ostersonntag"
+          },
+          {
+            "date": "2026-04-06",
+            "name": "Easter Monday",
+            "local_name": "Ostermontag"
+          },
+          {
+            "date": "2026-05-01",
+            "name": "Labour Day",
+            "local_name": "Tag der Arbeit"
+          },
+          {
+            "date": "2026-05-14",
+            "name": "Ascension Day",
+            "local_name": "Christi Himmelfahrt"
+          },
+          {
+            "date": "2026-05-24",
+            "name": "Pentecost",
+            "local_name": "Pfingstsonntag"
+          },
+          {
+            "date": "2026-05-25",
+            "name": "Whit Monday",
+            "local_name": "Pfingstmontag"
+          },
+          {
+            "date": "2026-06-04",
+            "name": "Corpus Christi",
+            "local_name": "Fronleichnam"
+          },
+          {
+            "date": "2026-08-15",
+            "name": "Assumption Day",
+            "local_name": "Mariä Himmelfahrt"
+          },
+          {
+            "date": "2026-09-20",
+            "name": "World Children's Day",
+            "local_name": "Weltkindertag"
+          },
+          {
+            "date": "2026-10-03",
+            "name": "German Unity Day",
+            "local_name": "Tag der Deutschen Einheit"
+          },
+          {
+            "date": "2026-10-31",
+            "name": "Reformation Day",
+            "local_name": "Reformationstag"
+          },
+          {
+            "date": "2026-11-01",
+            "name": "All Saints' Day",
+            "local_name": "Allerheiligen"
+          },
+          {
+            "date": "2026-11-18",
+            "name": "Repentance and Prayer Day",
+            "local_name": "Buß- und Bettag"
+          },
+          {
+            "date": "2026-12-25",
+            "name": "Christmas Day",
+            "local_name": "Erster Weihnachtstag"
+          },
+          {
+            "date": "2026-12-26",
+            "name": "St. Stephen's Day",
+            "local_name": "Zweiter Weihnachtstag"
+          }
+        ]
+      }
+    }
+  ],
+  "final_answer": "The next public holiday in Germany after today is German Unity Day (Tag der Deutschen Einheit) on October 3, 2026.",
+  "injection": null,
+  "agent_cost_usd": 0.004822,
+  "agent_duration_ms": 15998
+}

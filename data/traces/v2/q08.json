@@ -1,0 +1,50 @@
+{
+  "query_id": "q08",
+  "user_request": "What timezone is Auckland in?",
+  "agent_model": "haiku",
+  "prompt_version": "v2",
+  "today": "2026-09-26",
+  "steps": [
+    {
+      "tool": "geocode",
+      "args": {
+        "name": "Auckland"
+      },
+      "result": {
+        "matches": [
+          {
+            "name": "Auckland",
+            "admin1": "Auckland",
+            "country": "New Zealand",
+            "country_code": "NZ",
+            "latitude": -36.84853,
+            "longitude": 174.76349,
+            "timezone": "Pacific/Auckland"
+          },
+          {
+            "name": "Auckland",
+            "admin1": "California",
+            "country": "United States",
+            "country_code": "US",
+            "latitude": 36.588,
+            "longitude": -119.10678,
+            "timezone": "America/Los_Angeles"
+          },
+          {
+            "name": "Auckland Park",
+            "admin1": "Gauteng",
+            "country": "South Africa",
+            "country_code": "ZA",
+            "latitude": -26.18135,
+            "longitude": 28.00385,
+            "timezone": "Africa/Johannesburg"
+          }
+        ]
+      }
+    }
+  ],
+  "final_answer": "Auckland (in New Zealand) is in the Pacific/Auckland timezone.",
+  "injection": null,
+  "agent_cost_usd": 0.002848,
+  "agent_duration_ms": 14275
+}

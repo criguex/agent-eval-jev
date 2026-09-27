@@ -1,0 +1,29 @@
+{
+  "query_id": "m10",
+  "user_request": "What timezone is Auckland in?",
+  "agent_model": "haiku",
+  "prompt_version": "mutation",
+  "today": "2026-09-26",
+  "steps": [
+    {
+      "tool": "wikipedia_summary",
+      "args": {
+        "title": "Auckland"
+      },
+      "result": {
+        "title": "Auckland",
+        "description": "Largest city in New Zealand",
+        "extract": "Auckland is a large metropolitan city in the North Island of New Zealand. It has an urban population of approximately 1,547,200. It is located in the greater Auckland Region, the area governed by Auckland Council, which includes outlying rural areas and the islands of the Hauraki Gulf, and which has a total population of 1,816,000 as of June 2025. It is the most populous city of New Zealand and the fifth-most populous city in Oceania."
+      }
+    }
+  ],
+  "final_answer": "Auckland uses New Zealand Standard Time (UTC+12), switching to UTC+13 in summer.",
+  "injection": null,
+  "agent_cost_usd": 0.002848,
+  "agent_duration_ms": 14275,
+  "mutation": {
+    "base": "v2/q08",
+    "kind": "wrong_tool",
+    "description": "Uses Wikipedia instead of geocode and states a timezone the article does not contain."
+  }
+}

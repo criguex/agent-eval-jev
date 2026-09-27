@@ -1,0 +1,16 @@
+{
+ "case": "v1-q22",
+ "repeat": 1,
+ "model": "claude-sonnet-5",
+ "verdict": {
+  "tool_use": false,
+  "grounded": false,
+  "complete": false,
+  "policy": true
+ },
+ "cost_usd": 0.0025886,
+ "api_latency_ms": 2071,
+ "wall_latency_ms": 3833.0,
+ "input_tokens": 1475,
+ "output_tokens": 229
+}

@@ -1,0 +1,47 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      live:
+        description: "Also re-ask Jev live on a few cases and compare with the recordings"
+        type: boolean
+        default: false
+
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pytest ruff
+      - run: ruff check . && ruff format --check .
+      - run: pytest -q
+      - name: Rebuild the report from recorded fixtures
+        run: python -m agenteval evaluate
+      - name: Report must match the committed one
+        run: git diff --exit-code -- results reports
+      - name: Quality gate
+        run: python -m agenteval gate --min-agreement 0.85
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eval-report
+          path: reports/
+
+  live:
+    if: github.event_name == 'workflow_dispatch' && inputs.live
+    runs-on: ubuntu-latest
+    needs: offline
+    env:
+      AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m agenteval live-check --cases 6

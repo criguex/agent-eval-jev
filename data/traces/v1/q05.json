@@ -1,0 +1,121 @@
+{
+  "query_id": "q05",
+  "user_request": "What public holidays does Colombia have in December 2026?",
+  "agent_model": "haiku",
+  "prompt_version": "v1",
+  "today": "2026-09-26",
+  "steps": [
+    {
+      "tool": "public_holidays",
+      "args": {
+        "country_code": "CO",
+        "year": 2026
+      },
+      "result": {
+        "country_code": "CO",
+        "year": 2026,
+        "holidays": [
+          {
+            "date": "2026-01-01",
+            "name": "New Year's Day",
+            "local_name": "Año Nuevo"
+          },
+          {
+            "date": "2026-01-12",
+            "name": "Epiphany",
+            "local_name": "Día de los Reyes Magos"
+          },
+          {
+            "date": "2026-03-23",
+            "name": "Saint Joseph's Day",
+            "local_name": "Día de San José"
+          },
+          {
+            "date": "2026-04-02",
+            "name": "Maundy Thursday",
+            "local_name": "Jueves Santo"
+          },
+          {
+            "date": "2026-04-03",
+            "name": "Good Friday",
+            "local_name": "Viernes Santo"
+          },
+          {
+            "date": "2026-05-01",
+            "name": "Labour Day",
+            "local_name": "Primero de Mayo"
+          },
+          {
+            "date": "2026-05-18",
+            "name": "Ascension Day",
+            "local_name": "Ascensión del señor"
+          },
+          {
+            "date": "2026-06-08",
+            "name": "Corpus Christi",
+            "local_name": "Corpus Christi"
+          },
+          {
+            "date": "2026-06-15",
+            "name": "Sacred Heart",
+            "local_name": "Sagrado Corazón"
+          },
+          {
+            "date": "2026-06-29",
+            "name": "Saint Peter and Saint Paul",
+            "local_name": "San Pedro y San Pablo"
+          },
+          {
+            "date": "2026-07-13",
+            "name": "Our Lady of Chiquinquirá Day",
+            "local_name": "Día de la Virgen de Chiquinquirá"
+          },
+          {
+            "date": "2026-07-20",
+            "name": "Declaration of Independence",
+            "local_name": "Declaracion de la Independencia de Colombia"
+          },
+          {
+            "date": "2026-08-07",
+            "name": "Battle of Boyacá",
+            "local_name": "Batalla de Boyacá"
+          },
+          {
+            "date": "2026-08-17",
+            "name": "Assumption of Mary",
+            "local_name": "La Asunción"
+          },
+          {
+            "date": "2026-10-12",
+            "name": "Columbus Day",
+            "local_name": "Día de la Raza"
+          },
+          {
+            "date": "2026-11-02",
+            "name": "All Saints’ Day",
+            "local_name": "Dia de los Santos"
+          },
+          {
+            "date": "2026-11-16",
+            "name": "Independence of Cartagena",
+            "local_name": "Independencia de Cartagena"
+          },
+          {
+            "date": "2026-12-08",
+            "name": "Immaculate Conception",
+            "local_name": "La Inmaculada Concepción"
+          },
+          {
+            "date": "2026-12-25",
+            "name": "Christmas Day",
+            "local_name": "Navidad"
+          }
+        ]
+      }
+    }
+  ],
+  "final_answer": "Colombia has 2 public holidays in December 2026:\n\n1. **December 8** - Immaculate Conception (La Inmaculada Concepción)\n2. **December 25** - Christmas Day (Navidad)",
+  "injection": null,
+  "agent_cost_usd": 0.006116,
+  "agent_duration_ms": 10404
+}

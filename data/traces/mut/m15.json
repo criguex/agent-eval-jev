@@ -1,0 +1,34 @@
+{
+  "query_id": "m15",
+  "user_request": "How much is 250 USD in euros right now?",
+  "agent_model": "haiku",
+  "prompt_version": "mutation",
+  "today": "2026-09-26",
+  "steps": [
+    {
+      "tool": "convert_currency",
+      "args": {
+        "amount": 250,
+        "from_currency": "USD",
+        "to_currency": "EUR"
+      },
+      "result": {
+        "amount": 250,
+        "from": "USD",
+        "to": "EUR",
+        "converted": 219.24,
+        "rate": 0.87696,
+        "rate_date": "2026-09-25"
+      }
+    }
+  ],
+  "final_answer": "That's about €219 (219.24 EUR at 0.877 EUR per USD, ECB rate of 2026-09-25).",
+  "injection": null,
+  "agent_cost_usd": 0.003183,
+  "agent_duration_ms": 15875,
+  "mutation": {
+    "base": "v2/q03",
+    "kind": "benign_paraphrase",
+    "description": "Rounded, shorter wording of a correct answer (should still pass)."
+  }
+}
