@@ -13,7 +13,7 @@ Imagina un robot que te ayuda a planear viajes. Busca en internet el clima, los 
 - **Imagina** que le preguntas al robot: "¿Cuánto son 250 dólares en euros?". La herramienta de dinero dice **€219.24**.
 - **Qué pasa:** en una de las respuestas de prueba cambiamos el número a propósito por **€231.50**, para ver si la revisión lo atrapa.
 - **Qué hace el proyecto:** la calculadora ve que 231.50 no es lo que dijo la herramienta, y Jev le da solo un **3%** a "¿estos datos salen de las herramientas?". La respuesta queda mal. En otro error sembrado, el robot buscó Lisboa en Ohio (Estados Unidos) en vez de Lisboa en Portugal; Jev quedó **50/50**, así que el caso se lo pasaron a una persona en vez de adivinar.
-- **Qué ganamos:** las respuestas malas se atrapan antes de que las vea gente de verdad, y la misma revisión deja pasar al robot bueno (v2, 94% bien) y frena al viejo (v1, 18% bien).
+- **Qué ganamos:** las respuestas malas se atrapan antes de que las vea gente de verdad, y la misma revisión deja pasar al robot bueno (el evaluador aprueba el 94% de las respuestas de v2) y frena al viejo (aprueba el 18% de las de v1). Esas son tasas de aprobación del evaluador, no exactitud revisada por personas; cuánto coincide el evaluador con las personas se mide aparte: 93.1% en 29 casos de prueba.
 
 ![Historia animada: un robot de viajes responde con un número equivocado, la calculadora y Jev lo atrapan, un caso dudoso va a una persona y la puerta deja pasar a v2 y frena a v1](docs/assets/explained.es.gif)
 
@@ -129,7 +129,7 @@ Reporte completo: [reports/report.md](reports/report.md) (versión HTML en `repo
 
 **Velocidad y costo** (medidos): Jev p50 482 ms y p95 705 ms por traza (6 preguntas, ~1.760 tokens de entrada), es decir **$0.074 por cada 1.000 trazas**. El juez LLM tardó p50 4.5 s de reloj (2.8 s de API) y costó **$5.83 por cada 1.000 trazas** a precio de lista, unas 79 veces más. Todas las llamadas a Jev de este proyecto, incluidos el ajuste de prompts y las corridas sin proveedor fijo que se descartaron, costaron alrededor de $0.05 en total.
 
-**Gate de CI.** El mismo gate que deja pasar al agente v2 (94% de aprobación compuesta, sin fallas de policy) bloquea al agente v1 (18%).
+**Gate de CI.** El mismo gate que deja pasar al agente v2 (94% de aprobación compuesta, sin fallas de policy) bloquea al agente v1 (18%). Son tasas de aprobación del evaluador compuesto, no exactitud de los agentes revisada por personas; la concordancia del propio evaluador con las etiquetas humanas es el 93.1% (kappa 0.86) de la tabla de arriba.
 
 Lo que esto dice, y lo que no:
 
