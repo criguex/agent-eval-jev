@@ -1,10 +1,12 @@
 # Evaluation report
 
-Generated from recorded fixtures. 60 golden cases (36 human PASS), calibration split 31, held-out split 29. Jev model: jev-latest. LLM judge: claude-sonnet-5.
+Generated from recorded fixtures. 60 golden cases (36 reference PASS), calibration split 31, held-out split 29. Jev model: jev-latest. LLM judge: claude-sonnet-5.
+
+Reference labels: drafted by an AI assistant against the written rubric (RUBRIC.md), then reviewed and approved by one person. There is no independent human annotator, so every agreement figure below is agreement with AI-drafted, human-reviewed labels, not with independent human judgment.
 
 ![overall](charts/overall.svg)
 
-## Overall pass/fail agreement with human labels
+## Overall pass/fail agreement with reference labels
 
 | Method | Held-out accuracy (95% CI) | Held-out kappa | All-cases accuracy | False PASS (all) | False FAIL (all) |
 |---|---|---|---|---|---|
@@ -19,7 +21,7 @@ Weights (fixed before fitting): grounded 0.30, tool_use 0.20, complete 0.20, pol
 
 Fitted on the calibration split only: pass threshold **0.67**, review margin **0.0** (smallest margin whose automatic decisions reach 95% accuracy on calibration). Any criterion probability inside (0.35, 0.65) also routes to human review.
 
-| Split | Cases | Auto-decided | Auto accuracy | Sent to review | Reviewed cases that were human FAIL |
+| Split | Cases | Auto-decided | Auto accuracy | Sent to review | Reviewed cases labeled FAIL |
 |---|---|---|---|---|---|
 | calibration | 31 | 28 | 96.4% | 3 | 1 |
 | held_out | 29 | 23 | 95.7% | 6 | 2 |
@@ -84,15 +86,15 @@ Jev latency counts the successful attempt only; 297 of 300 requests first got HT
 
 ## Agent versions
 
-| Trace source | Cases | Human pass rate | Composite pass rate | Hard-gate failures |
+| Trace source | Cases | Reference pass rate | Composite pass rate | Hard-gate failures |
 |---|---|---|---|---|
 | agent_v1 | 11 | 27% | 18% | 7 |
 | agent_v2 | 34 | 94% | 94% | 1 |
 | seeded_defect | 15 | 7% | 7% | 5 |
 
-## Disagreements (composite vs human)
+## Disagreements (composite vs reference label)
 
-| Case | Split | Human | Score | Decision | Gates / uncertain | Rationale |
+| Case | Split | Reference | Score | Decision | Gates / uncertain | Rationale |
 |---|---|---|---|---|---|---|
 | v1-q17 | held_out | FAIL | 0.69 | pass | - | No lookup needed for a mythical place, but it adds facts (Plato's dialogues) that come from no tool. |
 | v1-q20 | calibration | PASS | 0.64 | fail | - | 0 EUR = 0 USD without a tool call is trivially correct; strict reading of 'numbers from tools' could fail it. |

@@ -2,7 +2,7 @@
 
 Every golden case is one recorded run of the TripDesk agent: the user request, each tool call with its arguments and raw result, and the final answer. A case gets four binary labels. The case **passes only if all four are true**.
 
-The same four definitions are used by the human labels, the Jev questions (`agenteval/judge_jev.py`) and the LLM judge prompt (`agenteval/judge_llm.py`), so all three are graded against the same contract.
+The same four definitions are used by the reference labels, the Jev questions (`agenteval/judge_jev.py`) and the LLM judge prompt (`agenteval/judge_llm.py`), so all three are graded against the same contract.
 
 ## 1. `tool_use`: right tools, right arguments
 
@@ -53,7 +53,9 @@ Some cases are marked `"ambiguous": true` in `data/golden.jsonl`. They are label
 
 ## Who labeled
 
-Labels and rationales were written case by case against this rubric by a single annotator. There is no second annotator, so inter-annotator agreement is not measured. Treat the reference labels as one careful reviewer's judgment, not ground truth. The service version of this project adds a second reviewer on a sample and reports their agreement.
+Reference labels: drafted by an AI assistant against the written rubric, then reviewed and approved by me (Cristian). Labels and rationales were drafted case by case against this rubric. One reviewer, no independent human annotator, so any agreement figure in this repo is agreement with AI-drafted, human-reviewed labels, not with independent human judgment, and inter-annotator agreement is not measured. Treat the reference labels as one reviewed reference, not ground truth.
+
+The next honest step is to label a sample blind by hand (or with a second human annotator) and measure the agreement with these labels. The service version of this project does that on a sample and reports the agreement.
 
 ## Case sources
 

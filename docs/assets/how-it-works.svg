@@ -65,6 +65,6 @@
   <path d="M 775,280 L 775,348" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#am)"/>
   <path d="M 590,400 L 628,400" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-dasharray="6 5" stroke-linejoin="round" marker-end="url(#am)"/>
   <path d="M 1096,290 L 1096,348" fill="none" stroke="#FFC56E" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#ag)"/>
-  <text x="48" y="486" text-anchor="start" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="14" font-weight="400" fill="#ABC0C8">Measured on the held-out split (29 cases): composite 93.1% agreement with human labels, kappa 0.86 · Jev $0.074 per 1,000 traces, p50 482 ms.</text>
+  <text x="48" y="486" text-anchor="start" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="14" font-weight="400" fill="#ABC0C8">Held-out split (29 cases): composite 93.1% agreement with AI-drafted, human-reviewed reference labels, kappa 0.86 · Jev $0.074 per 1,000 traces, p50 482 ms.</text>
   <rect x="740" y="306" width="69" height="20" rx="6" fill="#071B2B" stroke="#214456"/><text x="775" y="320" text-anchor="middle" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="12.5" fill="#F4F7F5">verdicts</text>
 </svg>

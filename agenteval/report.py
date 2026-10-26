@@ -48,7 +48,7 @@ def _axis(x0: float, x1: float, top: float, bottom: float, ticks=(0, 0.25, 0.5, 
 def chart_overall(results: dict) -> str:
     width, left, right = 720, 270, 660
     rows = list(METHOD_LABELS)
-    body = ['<text class="m" x="16" y="46">Share of cases where the verdict matches the human pass/fail label</text>']
+    body = ['<text class="m" x="16" y="46">Share of cases where the verdict matches the reference pass/fail label</text>']
     top = 70
     body += _axis(left, right, top - 8, top + len(rows) * 44)
     for i, name in enumerate(rows):
@@ -84,7 +84,7 @@ def chart_overall(results: dict) -> str:
     body.append(
         f'<rect class="s2" x="{left + 200}" y="{ly - 10}" width="12" height="12" rx="2"/><text class="m" x="{left + 218}" y="{ly}">all cases (n={results["meta"]["cases"]})</text>'
     )
-    return _svg(width, ly + 18, "Agreement with human labels (overall pass/fail)", body)
+    return _svg(width, ly + 18, "Agreement with reference labels (overall pass/fail)", body)
 
 
 def chart_criteria(results: dict) -> str:
@@ -136,14 +136,14 @@ def chart_strip(results: dict) -> str:
             cls = "dot1" if ok else "dot2"
             body.append(
                 f'<circle class="{cls}" cx="{left + (right - left) * p:.1f}" cy="{cy:.1f}" r="5">'
-                f"<title>{html.escape(case['id'])}: p={p:.2f}, human={'yes' if ok else 'no'}</title></circle>"
+                f"<title>{html.escape(case['id'])}: p={p:.2f}, reference={'yes' if ok else 'no'}</title></circle>"
             )
     ly = top + len(CRITERIA) * band + 22
     body.append(
-        f'<circle class="dot1" cx="{left + 6}" cy="{ly - 4}" r="5"/><text class="m" x="{left + 16}" y="{ly}">human label: criterion met</text>'
+        f'<circle class="dot1" cx="{left + 6}" cy="{ly - 4}" r="5"/><text class="m" x="{left + 16}" y="{ly}">reference label: criterion met</text>'
     )
     body.append(
-        f'<circle class="dot2" cx="{left + 226}" cy="{ly - 4}" r="5"/><text class="m" x="{left + 236}" y="{ly}">human label: criterion violated</text>'
+        f'<circle class="dot2" cx="{left + 226}" cy="{ly - 4}" r="5"/><text class="m" x="{left + 236}" y="{ly}">reference label: criterion violated</text>'
     )
     return _svg(width, ly + 16, "How well Jev separates good from bad", body)
 
@@ -228,13 +228,17 @@ def _markdown(results: dict) -> str:
     lines = [
         "# Evaluation report",
         "",
-        f"Generated from recorded fixtures. {m['cases']} golden cases ({m['human_pass']} human PASS), "
+        f"Generated from recorded fixtures. {m['cases']} golden cases ({m['human_pass']} reference PASS), "
         f"calibration split {m['calibration_cases']}, held-out split {m['held_out_cases']}. "
         f"Jev model: {', '.join(m['jev_model'])}. LLM judge: {', '.join(m['llm_judge_model'])}.",
         "",
+        "Reference labels: drafted by an AI assistant against the written rubric (RUBRIC.md), then reviewed and "
+        "approved by one person. There is no independent human annotator, so every agreement figure below is "
+        "agreement with AI-drafted, human-reviewed labels, not with independent human judgment.",
+        "",
         "![overall](charts/overall.svg)",
         "",
-        "## Overall pass/fail agreement with human labels",
+        "## Overall pass/fail agreement with reference labels",
         "",
         "| Method | Held-out accuracy (95% CI) | Held-out kappa | All-cases accuracy | False PASS (all) | False FAIL (all) |",
         "|---|---|---|---|---|---|",
@@ -257,7 +261,7 @@ def _markdown(results: dict) -> str:
         f"(smallest margin whose automatic decisions reach {cal['auto_accuracy_target']:.0%} accuracy on calibration). "
         f"Any criterion probability inside {tuple(cal['uncertain_band'])} also routes to human review.",
         "",
-        "| Split | Cases | Auto-decided | Auto accuracy | Sent to review | Reviewed cases that were human FAIL |",
+        "| Split | Cases | Auto-decided | Auto accuracy | Sent to review | Reviewed cases labeled FAIL |",
         "|---|---|---|---|---|---|",
     ]
     for part in ("calibration", "held_out", "all"):
@@ -330,7 +334,7 @@ def _markdown(results: dict) -> str:
         "",
         "## Agent versions",
         "",
-        "| Trace source | Cases | Human pass rate | Composite pass rate | Hard-gate failures |",
+        "| Trace source | Cases | Reference pass rate | Composite pass rate | Hard-gate failures |",
         "|---|---|---|---|---|",
     ]
     for source, a in results["agents"].items():
@@ -339,9 +343,9 @@ def _markdown(results: dict) -> str:
         )
     lines += [
         "",
-        "## Disagreements (composite vs human)",
+        "## Disagreements (composite vs reference label)",
         "",
-        "| Case | Split | Human | Score | Decision | Gates / uncertain | Rationale |",
+        "| Case | Split | Reference | Score | Decision | Gates / uncertain | Rationale |",
         "|---|---|---|---|---|---|---|",
     ]
     threshold = cal["threshold"]
