@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>agent-eval-jev · how it works</title>
+<style>
+:root{--navy:#071B2B;--deep:#0D2638;--panel:#123448;--grid:#214456;--mint:#55DFBD;--gold:#FFC56E;--coral:#FB8176;--white:#F4F7F5;--muted:#ABC0C8;--muted2:#8FA6B0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:960px;height:540px;overflow:hidden;background:var(--navy)}
+body{font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--white);position:relative;background-image:linear-gradient(rgba(85,223,189,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(85,223,189,.06) 1px,transparent 1px);background-size:40px 40px}
+.bar{position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--mint)}
+h1{position:absolute;left:28px;top:18px;font-size:24px;font-weight:700}
+.sub{position:absolute;left:28px;top:50px;font-size:14px;color:var(--muted)}
+.sign{position:absolute;right:28px;top:26px;font-size:12px;font-weight:600;color:var(--mint)}
+svg.edges{position:absolute;left:0;top:0}
+.node{position:absolute;background:var(--deep);border:1.5px solid var(--grid);border-radius:10px;padding:8px 11px;opacity:.32}
+.node b{display:block;font-size:13.5px;font-weight:700;color:var(--white);white-space:nowrap}
+.node span{display:block;font-size:11.5px;line-height:1.35;color:var(--muted);margin-top:3px;white-space:nowrap}
+.node.on{opacity:1}
+.node.on.pass{border-color:var(--mint)}.node.on.fail{border-color:var(--coral)}.node.on.warn{border-color:var(--gold)}.node.on.plain{border-color:#3a6276}
+.node.hot{box-shadow:0 0 0 3px rgba(85,223,189,.25)}
+.node.hot.fail{box-shadow:0 0 0 3px rgba(251,129,118,.28)}.node.hot.warn{box-shadow:0 0 0 3px rgba(255,197,110,.28)}
+.sym-pass{color:var(--mint)}.sym-fail{color:var(--coral)}.sym-warn{color:var(--gold)}
+.caption{position:absolute;left:28px;right:28px;top:300px;font-size:16px;font-weight:600;color:var(--white);display:flex;gap:10px;align-items:center}
+.caption i{font-style:normal;font-size:12px;font-weight:700;color:var(--navy);background:var(--mint);border-radius:999px;padding:2px 9px}
+.term{position:absolute;left:24px;right:24px;top:334px;bottom:22px;background:var(--deep);border:1px solid var(--grid);border-radius:12px;padding:30px 16px 10px;font:12.5px/18px Menlo,Consolas,monospace;color:var(--muted);overflow:hidden}
+.term .dots{position:absolute;left:14px;top:11px;display:flex;gap:6px}.term .dots u{display:block;width:9px;height:9px;border-radius:50%;background:var(--grid)}
+.term .tt{position:absolute;right:14px;top:8px;font-size:11px;color:var(--muted2)}
+.term p{white-space:pre;overflow:hidden;text-overflow:clip}
+.term .cmd{color:var(--white)}.term .cmd:before{content:"$ ";color:var(--mint)}
+.term .pass{color:var(--mint)}.term .fail{color:var(--coral)}.term .warn{color:var(--gold)}.term .hi{color:var(--white)}
+.cursor{display:inline-block;width:7px;height:13px;background:var(--mint);vertical-align:-2px}
+.progress{position:absolute;left:24px;bottom:10px;height:3px;background:var(--mint);border-radius:2px}
+</style>
+</head>
+<body>
+<div class="bar"></div>
+<h1 id="title"></h1><div class="sub" id="subtitle"></div><div class="sign">Cristian Guerra · QA · Medellín</div>
+<svg class="edges" width="960" height="540" id="edges"></svg>
+<div id="nodes"></div>
+<div class="caption" id="caption"></div>
+<div class="term" id="term"><div class="dots"><u></u><u></u><u></u></div><div class="tt" id="tt"></div><div id="lines"></div></div>
+<div class="progress" id="progress"></div>
+<script>
+const SCENE = {
+ "title": "agent-eval-jev",
+ "subtitle": "Code checks + a calibrated Jev judge, replayed offline and enforced as a CI gate",
+ "termTitle": "offline replay of recorded fixtures",
+ "duration": 13,
+ "capY": 300,
+ "termY": 334,
+ "termRows": 7,
+ "nodes": [
+  {
+   "x": 28,
+   "y": 100,
+   "w": 150,
+   "h": 92,
+   "title": "Recorded trace",
+   "lines": [
+    "60 golden cases",
+    "calls, results, answer",
+    "data/traces/"
+   ],
+   "on": 0.2
+  },
+  {
+   "x": 214,
+   "y": 80,
+   "w": 196,
+   "h": 58,
+   "title": "Layer 1 · code checks",
+   "lines": [
+    "schema, tools, numbers, canary"
+   ],
+   "on": 1.6
+  },
+  {
+   "x": 214,
+   "y": 148,
+   "w": 196,
+   "h": 58,
+   "title": "Layer 2 · Jev",
+   "lines": [
+    "4 noul + 1 score + 1 choice"
+   ],
+   "on": 2.6
+  },
+  {
+   "x": 214,
+   "y": 216,
+   "w": 196,
+   "h": 58,
+   "title": "Layer 3 · LLM judge",
+   "lines": [
+    "same rubric, comparison only"
+   ],
+   "on": 3.6
+  },
+  {
+   "x": 446,
+   "y": 104,
+   "w": 190,
+   "h": 92,
+   "title": "Composite in code",
+   "lines": [
+    "hard gates first",
+    "fixed weights",
+    "threshold 0.67"
+   ],
+   "on": 4.9
+  },
+  {
+   "x": 672,
+   "y": 80,
+   "w": 160,
+   "h": 56,
+   "title": "PASS / FAIL",
+   "lines": [
+    "decided automatically"
+   ],
+   "kind": "pass",
+   "on": 6.3
+  },
+  {
+   "x": 672,
+   "y": 146,
+   "w": 160,
+   "h": 58,
+   "title": "Human review",
+   "lines": [
+    "a criterion in 0.35-0.65"
+   ],
+   "kind": "warn",
+   "sym": "warn",
+   "on": 7.1
+  },
+  {
+   "x": 446,
+   "y": 216,
+   "w": 200,
+   "h": 58,
+   "title": "CI gate",
+   "lines": [
+    "agreement ≥ 0.85 + agent quality"
+   ],
+   "on": 8.3
+  },
+  {
+   "x": 672,
+   "y": 216,
+   "w": 124,
+   "h": 58,
+   "title": "agent v2",
+   "lines": [
+    "94% → passes"
+   ],
+   "kind": "pass",
+   "sym": "pass",
+   "on": 9.0
+  },
+  {
+   "x": 812,
+   "y": 216,
+   "w": 124,
+   "h": 58,
+   "title": "agent v1",
+   "lines": [
+    "18% → blocked"
+   ],
+   "kind": "fail",
+   "sym": "fail",
+   "on": 9.8
+  }
+ ],
+ "edges": [
+  {
+   "pts": [
+    [
+     178,
+     146
+    ],
+    [
+     196,
+     146
+    ],
+    [
+     196,
+     109
+    ],
+    [
+     212,
+     109
+    ]
+   ],
+   "on": 1.0
+  },
+  {
+   "pts": [
+    [
+     178,
+     146
+    ],
+    [
+     196,
+     146
+    ],
+    [
+     196,
+     177
+    ],
+    [
+     212,
+     177
+    ]
+   ],
+   "on": 2.0
+  },
+  {
+   "pts": [
+    [
+     178,
+     146
+    ],
+    [
+     196,
+     146
+    ],
+    [
+     196,
+     245
+    ],
+    [
+     212,
+     245
+    ]
+   ],
+   "on": 3.0
+  },
+  {
+   "pts": [
+    [
+     410,
+     109
+    ],
+    [
+     428,
+     109
+    ],
+    [
+     428,
+     136
+    ],
+    [
+     444,
+     136
+    ]
+   ],
+   "on": 4.3
+  },
+  {
+   "pts": [
+    [
+     410,
+     177
+    ],
+    [
+     428,
+     177
+    ],
+    [
+     428,
+     166
+    ],
+    [
+     444,
+     166
+    ]
+   ],
+   "on": 4.4
+  },
+  {
+   "pts": [
+    [
+     636,
+     136
+    ],
+    [
+     654,
+     136
+    ],
+    [
+     654,
+     108
+    ],
+    [
+     670,
+     108
+    ]
+   ],
+   "on": 5.8
+  },
+  {
+   "pts": [
+    [
+     636,
+     170
+    ],
+    [
+     654,
+     170
+    ],
+    [
+     654,
+     175
+    ],
+    [
+     670,
+     175
+    ]
+   ],
+   "on": 6.6,
+   "kind": "warn"
+  },
+  {
+   "pts": [
+    [
+     541,
+     196
+    ],
+    [
+     541,
+     214
+    ]
+   ],
+   "on": 7.8,
+   "dur": 0.4
+  },
+  {
+   "pts": [
+    [
+     646,
+     245
+    ],
+    [
+     670,
+     245
+    ]
+   ],
+   "on": 8.6,
+   "dur": 0.4
+  },
+  {
+   "pts": [
+    [
+     600,
+     274
+    ],
+    [
+     600,
+     288
+    ],
+    [
+     874,
+     288
+    ],
+    [
+     874,
+     276
+    ]
+   ],
+   "on": 9.3,
+   "dur": 0.5,
+   "kind": "fail"
+  }
+ ],
+ "captions": [
+  {
+   "t": 0,
+   "text": "60 recorded traces replay offline: no agent and no network needed in CI"
+  },
+  {
+   "t": 1.0,
+   "text": "Layer 1 · code checks: argument schema, expected tools, numbers, canary"
+  },
+  {
+   "t": 2.0,
+   "text": "Layer 2 · Jev: six typed questions in one request per trace"
+  },
+  {
+   "t": 3.0,
+   "text": "Layer 3 · LLM judge: same rubric, kept for comparison, never in the verdict"
+  },
+  {
+   "t": 4.3,
+   "text": "Composite in code: hard gates first, then fixed weights and one threshold"
+  },
+  {
+   "t": 5.8,
+   "text": "Clear cases are decided; any criterion between 0.35 and 0.65 goes to a person"
+  },
+  {
+   "t": 7.8,
+   "text": "The same gate lets agent v2 through and blocks agent v1"
+  }
+ ],
+ "term": [
+  {
+   "t": 0.3,
+   "c": "cmd",
+   "text": "python -m agenteval evaluate"
+  },
+  {
+   "t": 4.9,
+   "c": "out",
+   "text": "composite held-out accuracy 0.931 (n=29), threshold 0.67, margin 0.0"
+  },
+  {
+   "t": 7.6,
+   "c": "cmd",
+   "text": "python -m agenteval gate --min-agreement 0.85"
+  },
+  {
+   "t": 8.4,
+   "c": "out",
+   "text": "judge held-out agreement: 0.931"
+  },
+  {
+   "t": 9.0,
+   "c": "hi",
+   "text": "agent v2 pass rate: 0.94, policy failures: 0"
+  },
+  {
+   "t": 9.8,
+   "c": "fail",
+   "text": "agent v1 pass rate: 0.18 (would be blocked by the same gate)"
+  }
+ ]
+};
+const NS = 'http://www.w3.org/2000/svg';
+const COL = { mint: '#55DFBD', fail: '#FB8176', warn: '#FFC56E', pass: '#55DFBD' };
+const SYM = { pass: '✓', fail: '✗', warn: '!' };
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+document.getElementById('title').textContent = SCENE.title;
+document.getElementById('subtitle').textContent = SCENE.subtitle;
+document.getElementById('tt').textContent = SCENE.termTitle;
+const nodesEl = document.getElementById('nodes');
+const nodes = SCENE.nodes.map((n) => {
+  const el = document.createElement('div');
+  el.className = 'node ' + (n.kind || 'plain');
+  Object.assign(el.style, { left: n.x + 'px', top: n.y + 'px', width: n.w + 'px', height: n.h + 'px' });
+  const sym = n.sym ? `<em class="sym-${n.sym}" style="font-style:normal">${SYM[n.sym]} </em>` : '';
+  el.innerHTML = `<b>${sym}${esc(n.title)}</b>` + (n.lines || []).map((l) => `<span>${esc(l)}</span>`).join('');
+  nodesEl.appendChild(el);
+  return { ...n, el };
+});
+const svg = document.getElementById('edges');
+const defs = document.createElementNS(NS, 'defs');
+for (const [k, c] of Object.entries({ m: '#55DFBD', f: '#FB8176', w: '#FFC56E', g: '#214456' })) {
+  const mk = document.createElementNS(NS, 'marker');
+  for (const [a, v] of Object.entries({ id: 'a' + k, viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto' })) mk.setAttribute(a, v);
+  const p = document.createElementNS(NS, 'path'); p.setAttribute('d', 'M0,0 L10,5 L0,10 z'); p.setAttribute('fill', c); mk.appendChild(p); defs.appendChild(mk);
+}
+svg.appendChild(defs);
+const edges = SCENE.edges.map((e) => {
+  const d = 'M ' + e.pts.map((p) => p.join(',')).join(' L ');
+  const base = document.createElementNS(NS, 'path');
+  base.setAttribute('d', d); base.setAttribute('fill', 'none'); base.setAttribute('stroke', '#214456'); base.setAttribute('stroke-width', '2'); base.setAttribute('marker-end', 'url(#ag)');
+  const kind = e.kind || 'mint';
+  const live = document.createElementNS(NS, 'path');
+  live.setAttribute('d', d); live.setAttribute('fill', 'none'); live.setAttribute('stroke', COL[kind]); live.setAttribute('stroke-width', '2.4'); live.setAttribute('stroke-linejoin', 'round');
+  const dot = document.createElementNS(NS, 'circle'); dot.setAttribute('r', 5); dot.setAttribute('fill', COL[kind]);
+  svg.append(base, live, dot);
+  let label = null;
+  if (e.label) {
+    label = document.createElementNS(NS, 'g');
+    const tw = e.label.length * 6.4 + 12;
+    const r = document.createElementNS(NS, 'rect');
+    for (const [a, v] of Object.entries({ x: e.labelAt[0] - tw / 2, y: e.labelAt[1] - 12, width: tw, height: 17, rx: 5, fill: '#071B2B', stroke: '#214456' })) r.setAttribute(a, v);
+    const t = document.createElementNS(NS, 'text');
+    for (const [a, v] of Object.entries({ x: e.labelAt[0], y: e.labelAt[1], 'text-anchor': 'middle', 'font-size': 11.5, fill: kind === 'mint' ? '#F4F7F5' : COL[kind] })) t.setAttribute(a, v);
+    t.textContent = e.label; label.append(r, t); svg.appendChild(label);
+  }
+  const len = live.getTotalLength();
+  live.setAttribute('stroke-dasharray', len);
+  return { ...e, base, live, dot, label, len, kind };
+});
+const linesEl = document.getElementById('lines');
+const cap = document.getElementById('caption');
+function render(t) {
+  for (const n of nodes) {
+    const on = t >= n.on;
+    n.el.classList.toggle('on', on);
+    n.el.classList.toggle('hot', on && t < n.on + 0.9);
+  }
+  for (const e of edges) {
+    const p = Math.max(0, Math.min(1, (t - e.on) / (e.dur || 0.6)));
+    e.live.setAttribute('stroke-dashoffset', e.len * (1 - p));
+    e.live.setAttribute('marker-end', p >= 1 ? `url(#a${e.kind === 'fail' ? 'f' : e.kind === 'warn' ? 'w' : 'm'})` : '');
+    e.live.style.opacity = p > 0 ? 1 : 0;
+    const moving = p > 0 && p < 1;
+    e.dot.style.opacity = moving ? 1 : 0;
+    if (moving) { const pt = e.live.getPointAtLength(e.len * p); e.dot.setAttribute('cx', pt.x); e.dot.setAttribute('cy', pt.y); }
+    if (e.label) e.label.style.opacity = p >= 1 ? 1 : 0;
+  }
+  let c = null;
+  SCENE.captions.forEach((k, i) => { if (t >= k.t) c = { ...k, i }; });
+  cap.innerHTML = c ? `<i>${c.i + 1}/${SCENE.captions.length}</i><span>${esc(c.text)}</span>` : '';
+  cap.style.opacity = c ? Math.min(1, (t - c.t) / 0.3) : 0;
+  const shown = SCENE.term.filter((l) => t >= l.t);
+  const visible = shown.slice(-SCENE.termRows);
+  linesEl.innerHTML = visible.map((l, idx) => {
+    let text = l.text;
+    let cursor = '';
+    if (l.c === 'cmd') {
+      const k = Math.floor(Math.min(1, (t - l.t) / 0.7) * text.length);
+      if (k < text.length || idx === visible.length - 1) cursor = '<span class="cursor"></span>';
+      text = text.slice(0, k);
+    }
+    return `<p class="${l.c}">${esc(text)}${cursor}</p>`;
+  }).join('');
+  document.getElementById('progress').style.width = (912 * Math.min(1, t / SCENE.duration)) + 'px';
+}
+const q = new URLSearchParams(location.search);
+render(q.has('t') ? parseFloat(q.get('t')) : SCENE.duration);
+</script>
+</body>
+</html>

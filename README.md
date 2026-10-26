@@ -1,10 +1,20 @@
 # agent-eval-jev
 
+[Leer en español](README.es.md)
+
+![agent-eval-jev: evaluating a real tool-using AI agent with code checks, a calibrated Jev judge and an LLM judge, wired into a CI gate](docs/assets/banner.svg)
+
 **Evaluating a real tool-using AI agent with code checks, a calibrated [Jev](https://docs.typesafe.ai) judge and an LLM judge, then wiring the result into CI.**
 
 This repo is a worked example of an evaluation service I offer: you bring an agent, and you get a golden set, a judge calibrated against human labels, a report, and a CI gate. Everything here runs against a real agent, and every number below was measured, not estimated.
 
-[Español más abajo](#español)
+## How it works
+
+![How it works: recorded trace, three layers of judgment, composite verdict in code, human review band and CI gate](docs/assets/how-it-works.svg)
+
+![Animation: one offline replay, from recorded traces to the CI gate, with the real output of python -m agenteval evaluate and gate](docs/assets/how-it-works.gif)
+
+The animation replays the real output of `python -m agenteval evaluate` and `python -m agenteval gate` ([MP4 version](docs/assets/how-it-works.mp4)). Its source is [`docs/scenes/how-it-works.html`](docs/scenes/how-it-works.html), rendered frame by frame with [`docs/scenes/export.sh`](docs/scenes/export.sh).
 
 ---
 
@@ -56,23 +66,7 @@ Categories cover happy paths, multi-tool requests, edge cases (unsupported curre
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    subgraph Agent run, recorded once
-        U[User request] --> A[TripDesk agent<br/>Claude Haiku via claude -p]
-        A <--> T[Public APIs<br/>Open-Meteo, Nager.Date,<br/>Frankfurter, Wikipedia]
-        A --> TR[(Trace JSON<br/>calls, args, results, answer)]
-    end
-    TR --> L1[Layer 1: code checks<br/>schema, expected tools,<br/>numbers match results, canary]
-    TR --> L2[Layer 2: Jev<br/>4 nouls + score + choice<br/>one request per trace]
-    TR --> L3[Layer 3: LLM judge<br/>optional, comparison only]
-    L1 --> C{Composite in code<br/>hard gates + weights}
-    L2 --> C
-    C -->|score far from threshold| V[PASS / FAIL]
-    C -->|probability in 0.35-0.65| H[Human review]
-    V --> R[Report + CI gate]
-    L3 --> R
-```
+The diagram above shows the flow. Each layer in detail:
 
 **Layer 1: code checks** (`agenteval/checks.py`). Tool names and argument schemas, expected tools called, every number in the answer found in a tool result (rounding and same-field differences allowed), and a canary string from the injection tests absent from the answer. Arithmetic stays in code because Jev's own documentation lists numeric precision as a weak spot.
 
@@ -164,31 +158,6 @@ What a client gets, with this repo as the template:
 
 Contact: Cristian Guerra · [github.com/criguex](https://github.com/criguex)
 
----
+## Author
 
-## Español
-
-**Evaluación de un agente de IA real con checks en código, un juez Jev calibrado y un juez LLM de comparación, conectada a CI.**
-
-Este repo es un ejemplo completo de un servicio que ofrezco: evaluación de agentes de IA con un juez calibrado contra etiquetas humanas. Todo corre contra un agente real, y todos los números fueron medidos.
-
-**El caso.** TripDesk es un asistente de viajes construido para este repo. Usa Claude Haiku (vía `claude -p`) y cinco APIs públicas gratuitas (Open-Meteo, Nager.Date, Frankfurter, Wikipedia). Se ejecutó en vivo el 2026-09-26 y cada traza (llamadas, argumentos, respuestas de las APIs y respuesta final) quedó grabada, así que la evaluación se reproduce offline.
-
-**Golden set.** 60 casos con cuatro criterios (`tool_use`, `grounded`, `complete`, `policy`) definidos en [RUBRIC.md](RUBRIC.md): 34 corridas reales del agente v2, 11 del v1 (que decía que sus herramientas "no estaban disponibles") y 15 defectos sembrados sobre trazas reales, todos marcados como tales. Incluye inyección de prompt directa e indirecta (un enlace de phishing o un número dictado dentro del resultado de una herramienta).
-
-**Tres capas.** (1) Checks en código: esquema de argumentos, herramientas esperadas, que cada número de la respuesta esté en los resultados, canario de inyección. (2) Jev: cuatro preguntas `noul`, un `score` de calidad y un `choice` de modo de falla, en una sola llamada por traza. (3) Un juez LLM (Claude Sonnet) solo para comparar. El puntaje compuesto se calcula en código con pesos explícitos. Solo el umbral y el margen de revisión se ajustan, y solo con el split de calibración. Los casos con probabilidades entre 0.35 y 0.65 van a revisión humana: la confianza del modelo se usa para enrutar, no como prueba.
-
-**Resultados medidos** (split held-out, 29 casos que el umbral nunca vio):
-
-| Método | Acuerdo con humano (IC 95%) | Kappa |
-|---|---|---|
-| Solo checks en código | 79.3% (62-90%) | 0.55 |
-| Jev solo (todos los criterios > 0.5) | 79.3% (62-90%) | 0.60 |
-| **Compuesto: código + Jev calibrado** | **93.1% (78-98%)** | **0.86** |
-| Juez LLM (Claude Sonnet) | 86.2% (69-94%) | 0.72 |
-
-23 de 29 casos se decidieron automáticamente con 95.7% de acierto y 6 fueron a revisión humana. Jev: p50 482 ms y **$0.074 por cada 1.000 trazas**. Juez LLM: p50 4.5 s y **$5.83 por cada 1.000 trazas**. Con el proveedor fijado, Jev y el juez LLM fueron igual de repetibles (0-3.3% de cambios de decisión por criterio), así que aquí no se reprodujo la gran diferencia de varianza del benchmark de LangChain. Sin fijar el proveedor en el gateway, dos proveedores respondieron distinto a la misma pregunta (0.85 contra 0.55). El gate de CI deja pasar al agente v2 (94%) y bloquea al v1 (18%).
-
-**Límites.** Muestra pequeña (29 casos held-out, intervalos anchos), un solo anotador, preguntas ajustadas sobre el split de calibración, defectos sembrados más limpios que los reales, y límites de tasa (HTTP 429) frecuentes en el gateway. Además, el gateway puede servir Jev desde más de un proveedor, y con solicitudes idénticas devolvieron probabilidades distintas. Por eso los números principales usan el proveedor fijado.
-
-**El servicio.** Golden set a partir de tus trazas reales, juez (código + Jev) con rúbrica escrita, reporte de calibración con split held-out, gate de CI con replay offline, y cola de revisión humana para los casos inciertos.
+Cristian Guerra · QA · Medellín · [github.com/criguex](https://github.com/criguex)

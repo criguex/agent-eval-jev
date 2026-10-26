@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="540" viewBox="0 0 1280 540" role="img" aria-label="How it works">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#55DFBD" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+    <clipPath id="r"><rect width="1280" height="540" rx="20"/></clipPath>
+    <marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#55DFBD"/></marker>
+    <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FB8176"/></marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FFC56E"/></marker>
+  </defs>
+  <g clip-path="url(#r)">
+    <rect width="1280" height="540" fill="#071B2B"/>
+    <rect width="1280" height="540" fill="url(#grid)"/>
+    <rect x="0" y="0" width="8" height="540" fill="#55DFBD"/>
+  </g>
+
+  <text x="48" y="58" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="28" font-weight="700" fill="#F4F7F5">How it works</text>
+  <text x="48" y="86" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" fill="#ABC0C8">One recorded trace per case, three layers of judgment, one composite verdict computed in code.</text>
+  <text x="1240" y="518" text-anchor="end" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#55DFBD">Cristian Guerra · QA · Medellín</text>
+  <rect x="48" y="160" width="220" height="140" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+  <text x="64" y="188" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5">Recorded trace</text>
+  <text x="64" y="210" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">request, tool calls,</text>
+  <text x="64" y="229" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">arguments, raw API</text>
+  <text x="64" y="248" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">results, final answer</text>
+  <text x="64" y="267" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">data/traces/ · 60 cases</text>
+  <rect x="320" y="120" width="270" height="96" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+  <text x="336" y="148" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5">Layer 1 · code checks</text>
+  <text x="336" y="170" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">schema, expected tools, every</text>
+  <text x="336" y="189" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">number found in a tool result,</text>
+  <text x="336" y="208" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">canary absent</text>
+  <rect x="320" y="232" width="270" height="96" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+  <text x="336" y="260" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5">Layer 2 · Jev</text>
+  <text x="336" y="282" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">4 noul (one per criterion)</text>
+  <text x="336" y="301" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">+ 1 score + 1 choice,</text>
+  <text x="336" y="320" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">one request per trace</text>
+  <rect x="320" y="344" width="270" height="96" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+  <text x="336" y="372" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5">Layer 3 · LLM judge</text>
+  <text x="336" y="394" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">Claude Sonnet, same rubric</text>
+  <text x="336" y="413" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">comparison only, never part</text>
+  <text x="336" y="432" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">of the verdict</text>
+  <rect x="630" y="150" width="290" height="130" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+  <text x="646" y="178" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5">Composite in code</text>
+  <text x="646" y="200" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">hard gates fail the case</text>
+  <text x="646" y="219" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">grounded .30 · tool_use .20</text>
+  <text x="646" y="238" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">complete .20 · policy .20 · quality .10</text>
+  <text x="646" y="257" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">threshold 0.67, fitted on calibration</text>
+  <rect x="960" y="110" width="272" height="80" rx="12" fill="#0D2638" stroke="#55DFBD" stroke-width="2"/>
+  <text x="976" y="138" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5">PASS / FAIL</text>
+  <text x="976" y="160" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">decided automatically</text>
+  <rect x="960" y="210" width="272" height="80" rx="12" fill="#0D2638" stroke="#FFC56E" stroke-width="2"/>
+  <text x="976" y="238" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5"><tspan fill="#FFC56E">! </tspan>Human review</text>
+  <text x="976" y="260" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">any criterion probability</text>
+  <text x="976" y="279" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">between 0.35 and 0.65</text>
+  <rect x="630" y="350" width="602" height="90" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+  <text x="646" y="378" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#F4F7F5">Report + CI gate</text>
+  <text x="646" y="400" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">reports/report.md · results/results.json · same gate on every push</text>
+  <text x="646" y="419" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13.5" fill="#ABC0C8">agent v2: 94% composite pass rate → passes   ·   agent v1: 18% → blocked</text>
+  <path d="M 268,230 L 294,230 L 294,168 L 318,168" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#am)"/>
+  <path d="M 268,230 L 294,230 L 294,280 L 318,280" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#am)"/>
+  <path d="M 268,230 L 294,230 L 294,392 L 318,392" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-dasharray="6 5" stroke-linejoin="round" marker-end="url(#am)"/>
+  <path d="M 590,168 L 610,168 L 610,195 L 628,195" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#am)"/>
+  <path d="M 590,280 L 610,280 L 610,245 L 628,245" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#am)"/>
+  <path d="M 920,195 L 940,195 L 940,150 L 958,150" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#am)"/>
+  <path d="M 920,245 L 940,245 L 940,250 L 958,250" fill="none" stroke="#FFC56E" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#ag)"/>
+  <path d="M 775,280 L 775,348" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#am)"/>
+  <path d="M 590,400 L 628,400" fill="none" stroke="#55DFBD" stroke-width="2.2" stroke-dasharray="6 5" stroke-linejoin="round" marker-end="url(#am)"/>
+  <path d="M 1096,290 L 1096,348" fill="none" stroke="#FFC56E" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#ag)"/>
+  <text x="48" y="486" text-anchor="start" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="14" font-weight="400" fill="#ABC0C8">Measured on the held-out split (29 cases): composite 93.1% agreement with human labels, kappa 0.86 · Jev $0.074 per 1,000 traces, p50 482 ms.</text>
+  <rect x="740" y="306" width="69" height="20" rx="6" fill="#071B2B" stroke="#214456"/><text x="775" y="320" text-anchor="middle" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="12.5" fill="#F4F7F5">verdicts</text>
+</svg>

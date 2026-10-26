@@ -12,11 +12,10 @@ METHOD_LABELS = {
     "llm_judge": "LLM judge (Claude Sonnet)",
 }
 SVG_STYLE = """<style>
-svg{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--grid:#e4e3df;--s1:#2a78d6;--s2:#eb6834;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-@media (prefers-color-scheme: dark){svg{--surface:#1a1a19;--ink:#ffffff;--ink2:#c3c2b7;--grid:#383835;--s1:#3987e5;--s2:#d95926}}
+svg{--surface:#071B2B;--ink:#F4F7F5;--ink2:#ABC0C8;--grid:#214456;--s1:#55DFBD;--s2:#8FA6B0;--s3:#FB8176;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 .bg{fill:var(--surface)}.t{fill:var(--ink);font-size:13px}.m{fill:var(--ink2);font-size:12px}.h{fill:var(--ink);font-size:15px;font-weight:600}
 .g{stroke:var(--grid);stroke-width:1}.s1{fill:var(--s1)}.s2{fill:var(--s2)}.l1{stroke:var(--s1)}.ref{stroke:var(--ink2);stroke-dasharray:4 3}
-.dot1{fill:var(--s1);stroke:var(--surface);stroke-width:2}.dot2{fill:var(--s2);stroke:var(--surface);stroke-width:2}
+.dot1{fill:var(--s1);stroke:var(--surface);stroke-width:2}.dot2{fill:var(--s3);stroke:var(--surface);stroke-width:2}
 </style>"""
 
 
@@ -395,9 +394,7 @@ def _html(results: dict, charts: dict[str, str], markdown: str) -> str:
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Agent Eval Report</title>
 <style>
-:root{{--bg:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--line:#e4e3df;--head:#f3f2ee}}
-@media (prefers-color-scheme: dark){{:root:not([data-theme="light"]){{--bg:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--line:#383835;--head:#242422}}}}
-:root[data-theme="dark"]{{--bg:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--line:#383835;--head:#242422}}
+:root{{--bg:#071B2B;--ink:#F4F7F5;--ink2:#ABC0C8;--line:#214456;--head:#0D2638;color-scheme:dark}}
 body{{background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0}}
 main{{max-width:960px;margin:0 auto;padding:24px 16px 64px}}
 h1{{font-size:28px;margin:8px 0 4px}}h2{{font-size:19px;margin:32px 0 8px}}p{{color:var(--ink2)}}
