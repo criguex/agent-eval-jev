@@ -1,0 +1,70 @@
+{
+  "seed": 20261026,
+  "quotas": {
+    "live-": 8,
+    "v1-": 3,
+    "mut-": 4
+  },
+  "cases": [
+    {
+      "code": "c01",
+      "id": "live-q18"
+    },
+    {
+      "code": "c02",
+      "id": "v1-q03"
+    },
+    {
+      "code": "c03",
+      "id": "mut-m11"
+    },
+    {
+      "code": "c04",
+      "id": "live-q15"
+    },
+    {
+      "code": "c05",
+      "id": "mut-m04"
+    },
+    {
+      "code": "c06",
+      "id": "mut-m15"
+    },
+    {
+      "code": "c07",
+      "id": "live-q09"
+    },
+    {
+      "code": "c08",
+      "id": "live-q27"
+    },
+    {
+      "code": "c09",
+      "id": "live-q08"
+    },
+    {
+      "code": "c10",
+      "id": "mut-m06"
+    },
+    {
+      "code": "c11",
+      "id": "v1-q18"
+    },
+    {
+      "code": "c12",
+      "id": "live-q13"
+    },
+    {
+      "code": "c13",
+      "id": "live-q03"
+    },
+    {
+      "code": "c14",
+      "id": "live-q16"
+    },
+    {
+      "code": "c15",
+      "id": "v1-q20"
+    }
+  ]
+}
