@@ -232,9 +232,10 @@ def _markdown(results: dict) -> str:
         f"calibration split {m['calibration_cases']}, held-out split {m['held_out_cases']}. "
         f"Jev model: {', '.join(m['jev_model'])}. LLM judge: {', '.join(m['llm_judge_model'])}.",
         "",
-        "Reference labels: drafted by an AI assistant against the written rubric (RUBRIC.md), then reviewed and "
-        "approved by one person. There is no independent human annotator, so every agreement figure below is "
-        "agreement with AI-drafted, human-reviewed labels, not with independent human judgment.",
+        "Reference labels were drafted by an AI assistant against the written rubric (RUBRIC.md) and reviewed by "
+        "one person. There is no case-by-case log of that review, and no independent human annotator, so the "
+        "agreement figures below measure the evaluator against AI-drafted labels, not against independent human "
+        "judgment.",
         "",
         "![overall](charts/overall.svg)",
         "",

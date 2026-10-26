@@ -13,7 +13,7 @@ Imagine a robot that helps you plan trips. It looks up the weather, holidays and
 - **Imagine** you ask the robot: "How much is 250 dollars in euros?" The money tool says **€219.24**.
 - **What happens:** in one test answer we changed the number on purpose to **€231.50**, to see if the grading catches it.
 - **What the project does:** the calculator sees that 231.50 is not what the tool said, and Jev gives only **3%** to "are these facts from the tools?". The answer fails. In another planted mistake the robot looked up Lisbon in Ohio (USA) instead of Lisbon in Portugal; Jev was **50/50**, so a person got the case instead of a guess.
-- **What we gain:** wrong answers are caught before real people see them, and the same check lets the good robot through (the evaluator passes 94% of v2's answers) and stops the old one (it passes 18% of v1's). Those are the evaluator's pass rates, not accuracy checked by people; how often the evaluator agrees with the answer key is measured separately: 93.1% on 29 held-out cases. The answer key was drafted by an AI helper following the rules and then checked and approved by me, not written by an independent person, so that 93.1% is agreement with the answer key, not with people.
+- **What we gain:** wrong answers are caught before real people see them, and the same check lets the good robot through (the evaluator passes 94% of v2's answers) and stops the old one (it passes 18% of v1's). Those are the evaluator's pass rates, not accuracy checked by people; how often the evaluator agrees with the answer key is measured separately: 93.1% on 29 held-out cases. The answer key was drafted by an AI helper following the rules and then checked by me, with no record of each check and no independent person, so that 93.1% is agreement with the answer key, not with people.
 
 ![Animated story: a travel robot answers with the wrong number, a calculator and Jev catch it, an unsure case goes to a person, and the gate lets v2 through and stops v1](docs/assets/explained.gif)
 
@@ -24,7 +24,7 @@ Imagine a robot that helps you plan trips. It looks up the weather, holidays and
 | Word | What it means |
 | --- | --- |
 | Agent | A computer helper that can use tools (like apps) on its own |
-| Golden set | The answer key: 60 example questions, each graded by an AI helper following written rules, then checked and approved by a person |
+| Golden set | The answer key: 60 example questions, each graded by an AI helper following written rules, then checked by a person (no record of each check) |
 | Judge | Whoever grades an answer. Here: code, Jev, and a writing AI kept only for comparison |
 | Jev | A fast AI that doesn't write sentences: it answers yes/no, picks an option or gives a score, and says how sure it is |
 | CI | A robot that checks the homework every time someone hands in a change |
@@ -34,7 +34,7 @@ Imagine a robot that helps you plan trips. It looks up the weather, holidays and
 
 **Evaluating a real tool-using AI agent with code checks, a calibrated [Jev](https://docs.typesafe.ai) judge and an LLM judge, then wiring the result into CI.**
 
-This repo is a worked example of an evaluation service I offer: you bring an agent, and you get a golden set, a judge calibrated against reviewed reference labels, a report, and a CI gate. Everything here runs against a real agent, and every number below was measured, not estimated.
+This repo is a worked example of an evaluation service I offer: you bring an agent, and you get a golden set, a judge calibrated against reference labels, a report, and a CI gate. Everything here runs against a real agent, and every number below was measured, not estimated.
 
 ## How it works
 
@@ -106,7 +106,7 @@ The diagram above shows the flow. Each layer in detail:
 
 ## Results
 
-Full report: [reports/report.md](reports/report.md) (HTML version in `reports/report.html`, raw numbers in `results/results.json`). Reference labels were drafted by an AI assistant against the rubric and approved by me before any judge was run (see [Limits](#limits)).
+Full report: [reports/report.md](reports/report.md) (HTML version in `reports/report.html`, raw numbers in `results/results.json`). Reference labels were drafted by an AI assistant against the rubric and reviewed by me (see [Limits](#limits)). They entered the repo in the same commit as the judge recordings, so the git history alone does not show that the labels came first.
 
 ![Agreement with reference labels](reports/charts/overall.svg)
 
@@ -141,7 +141,7 @@ What this says, and what it does not:
 ## Limits
 
 - **Small sample.** 29 held-out cases give wide confidence intervals (shown in the report). Treat differences of a few points as noise.
-- **AI-drafted, human-reviewed labels.** Reference labels: drafted by an AI assistant against the written rubric, then reviewed and approved by me (Cristian). One reviewer, no independent human annotator, so this is agreement with AI-drafted, human-reviewed labels, not with independent human judgment. Three cases are marked ambiguous. The next honest step is to label a sample blind by hand (or with a second human annotator) and measure the agreement.
+- **AI-drafted labels, review not logged.** Reference labels were drafted by an AI assistant against the written rubric and reviewed by me (Cristian). There is no case-by-case log of that review, and no independent human annotator, so the agreement figures measure the evaluator against AI-drafted labels, not against independent human judgment. Three cases are marked ambiguous. The next honest step is to re-label a blind sample by hand, log each decision, and measure agreement.
 - **Prompts were tuned on the calibration split.** The Jev question wording went through two iterations on the calibration cases only. The held-out numbers are the honest ones; the all-cases numbers include cases the prompts were tuned on.
 - **Seeded defects are synthetic.** 15 cases are controlled edits of real traces. They test the judge on failures that a healthy agent rarely produces, but they are cleaner than real failures.
 - **Gateway routing matters.** Through Vercel AI Gateway, Jev may be served by more than one upstream, and in this test they returned different probabilities for identical requests. The headline numbers pin the upstream. If you use the gateway, pin it too, or call TypeSafe directly.

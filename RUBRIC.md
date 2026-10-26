@@ -53,9 +53,9 @@ Some cases are marked `"ambiguous": true` in `data/golden.jsonl`. They are label
 
 ## Who labeled
 
-Reference labels: drafted by an AI assistant against the written rubric, then reviewed and approved by me (Cristian). Labels and rationales were drafted case by case against this rubric. One reviewer, no independent human annotator, so any agreement figure in this repo is agreement with AI-drafted, human-reviewed labels, not with independent human judgment, and inter-annotator agreement is not measured. Treat the reference labels as one reviewed reference, not ground truth.
+Reference labels were drafted by an AI assistant against the written rubric and reviewed by me (Cristian). There is no case-by-case log of that review, and no independent human annotator, so the agreement figures measure the evaluator against AI-drafted labels, not against independent human judgment. Labels and rationales were drafted case by case against this rubric and entered the repo in one commit (`be15726`), unchanged since. Inter-annotator agreement is not measured. Treat the reference labels as an AI-drafted reference, not ground truth.
 
-The next honest step is to label a sample blind by hand (or with a second human annotator) and measure the agreement with these labels. The service version of this project does that on a sample and reports the agreement.
+The next honest step is to re-label a blind sample by hand, log each decision, and measure agreement with these labels. The service version of this project does that on a sample and reports the agreement.
 
 ## Case sources
 

@@ -2,7 +2,7 @@
 
 Generated from recorded fixtures. 60 golden cases (36 reference PASS), calibration split 31, held-out split 29. Jev model: jev-latest. LLM judge: claude-sonnet-5.
 
-Reference labels: drafted by an AI assistant against the written rubric (RUBRIC.md), then reviewed and approved by one person. There is no independent human annotator, so every agreement figure below is agreement with AI-drafted, human-reviewed labels, not with independent human judgment.
+Reference labels were drafted by an AI assistant against the written rubric (RUBRIC.md) and reviewed by one person. There is no case-by-case log of that review, and no independent human annotator, so the agreement figures below measure the evaluator against AI-drafted labels, not against independent human judgment.
 
 ![overall](charts/overall.svg)
 
