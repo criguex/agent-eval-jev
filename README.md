@@ -4,6 +4,34 @@
 
 ![agent-eval-jev: evaluating a real tool-using AI agent with code checks, a calibrated Jev judge and an LLM judge, wired into a CI gate](docs/assets/banner.svg)
 
+## Explained like you're 8
+
+Imagine a robot that helps you plan trips. It looks up the weather, holidays and money exchange on the internet, and then answers you. Sometimes it gets things wrong, like a student who copies a number badly. This project is the teacher who grades the robot's homework: a calculator checks every number, a fast judge called Jev answers yes-or-no questions and says how sure it is, and when Jev is not sure, a person decides. A new version of the robot only gets out if it passes the same grading.
+
+**A real example from this repo**
+
+- **Imagine** you ask the robot: "How much is 250 dollars in euros?" The money tool says **€219.24**.
+- **What happens:** in one test answer we changed the number on purpose to **€231.50**, to see if the grading catches it.
+- **What the project does:** the calculator sees that 231.50 is not what the tool said, and Jev gives only **3%** to "are these facts from the tools?". The answer fails. In another planted mistake the robot looked up Lisbon in Ohio (USA) instead of Lisbon in Portugal; Jev was **50/50**, so a person got the case instead of a guess.
+- **What we gain:** wrong answers are caught before real people see them, and the same check lets the good robot (v2, 94% right) through and stops the old one (v1, 18% right).
+
+![Animated story: a travel robot answers with the wrong number, a calculator and Jev catch it, an unsure case goes to a person, and the gate lets v2 through and stops v1](docs/assets/explained.gif)
+
+[MP4 version](docs/assets/explained.mp4) · source: [`docs/scenes/explained.html`](docs/scenes/explained.html)
+
+**Hard words**
+
+| Word | What it means |
+| --- | --- |
+| Agent | A computer helper that can use tools (like apps) on its own |
+| Golden set | The answer key: 60 example questions, each graded by a person |
+| Judge | Whoever grades an answer. Here: code, Jev, and a writing AI kept only for comparison |
+| Jev | A fast AI that doesn't write sentences: it answers yes/no, picks an option or gives a score, and says how sure it is |
+| CI | A robot that checks the homework every time someone hands in a change |
+| Gate | A door that stays shut if the grades are too low |
+
+---
+
 **Evaluating a real tool-using AI agent with code checks, a calibrated [Jev](https://docs.typesafe.ai) judge and an LLM judge, then wiring the result into CI.**
 
 This repo is a worked example of an evaluation service I offer: you bring an agent, and you get a golden set, a judge calibrated against human labels, a report, and a CI gate. Everything here runs against a real agent, and every number below was measured, not estimated.

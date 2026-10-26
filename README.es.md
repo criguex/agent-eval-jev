@@ -4,6 +4,34 @@
 
 ![agent-eval-jev: evaluación de un agente de IA real que usa herramientas, con checks en código, un juez Jev calibrado y un juez LLM, conectada a un gate de CI](docs/assets/banner.svg)
 
+## Explicado para un niño de 8 años
+
+Imagina un robot que te ayuda a planear viajes. Busca en internet el clima, los festivos y cuánto vale la plata de otro país, y después te responde. A veces se equivoca, como un estudiante que copia mal un número. Este proyecto es el profe que le califica la tarea al robot: una calculadora revisa cada número, un juez rapidísimo llamado Jev responde preguntas de sí o no y dice qué tan seguro está, y cuando Jev no está seguro, decide una persona. Una versión nueva del robot solo sale si pasa la misma revisión.
+
+**Un ejemplo real de este repo**
+
+- **Imagina** que le preguntas al robot: "¿Cuánto son 250 dólares en euros?". La herramienta de dinero dice **€219.24**.
+- **Qué pasa:** en una de las respuestas de prueba cambiamos el número a propósito por **€231.50**, para ver si la revisión lo atrapa.
+- **Qué hace el proyecto:** la calculadora ve que 231.50 no es lo que dijo la herramienta, y Jev le da solo un **3%** a "¿estos datos salen de las herramientas?". La respuesta queda mal. En otro error sembrado, el robot buscó Lisboa en Ohio (Estados Unidos) en vez de Lisboa en Portugal; Jev quedó **50/50**, así que el caso se lo pasaron a una persona en vez de adivinar.
+- **Qué ganamos:** las respuestas malas se atrapan antes de que las vea gente de verdad, y la misma revisión deja pasar al robot bueno (v2, 94% bien) y frena al viejo (v1, 18% bien).
+
+![Historia animada: un robot de viajes responde con un número equivocado, la calculadora y Jev lo atrapan, un caso dudoso va a una persona y la puerta deja pasar a v2 y frena a v1](docs/assets/explained.es.gif)
+
+[Versión MP4](docs/assets/explained.es.mp4) · fuente: [`docs/scenes/explained.html`](docs/scenes/explained.html) (con `?lang=es`)
+
+**Palabras difíciles**
+
+| Palabra | Qué quiere decir |
+| --- | --- |
+| Agente | Un ayudante de computador que puede usar herramientas (como apps) por su cuenta |
+| Golden set | La hoja de respuestas: 60 preguntas de ejemplo, cada una calificada por una persona |
+| Juez | Quien califica una respuesta. Aquí: el código, Jev y una IA que escribe, que solo se usa para comparar |
+| Jev | Una IA rápida que no escribe frases: responde sí o no, escoge una opción o pone una nota, y dice qué tan segura está |
+| CI | Un robot que revisa la tarea cada vez que alguien entrega un cambio |
+| Gate (puerta) | Una puerta que se queda cerrada si las notas son muy bajas |
+
+---
+
 **Evaluación de un agente de IA real que usa herramientas, con checks en código, un juez [Jev](https://docs.typesafe.ai) calibrado y un juez LLM de comparación, conectada a CI.**
 
 Este repo es un ejemplo completo de un servicio que ofrezco: usted trae un agente y recibe un golden set, un juez calibrado contra etiquetas humanas, un reporte y un gate de CI. Todo aquí corre contra un agente real, y todos los números de abajo fueron medidos, no estimados.

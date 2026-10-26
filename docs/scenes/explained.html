@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>agent-eval-jev · explained</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:960px;height:540px;overflow:hidden;background:#071B2B}
+svg{display:block}
+</style>
+</head>
+<body>
+<svg id="stage" xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif"></svg>
+<script>
+const STORY = {
+ "title": "agent-eval-jev",
+ "subtitle": {
+  "en": "Explained like you're 8: grading a robot's homework",
+  "es": "Explicado para un niño de 8 años: calificar la tarea de un robot"
+ },
+ "duration": 15,
+ "captionY": 462,
+ "beats": [
+  {
+   "t": 0,
+   "text": {
+    "en": "You ask a travel robot a question",
+    "es": "Le haces una pregunta a un robot de viajes"
+   }
+  },
+  {
+   "t": 3.4,
+   "text": {
+    "en": "A calculator checks every number",
+    "es": "Una calculadora revisa cada número"
+   }
+  },
+  {
+   "t": 5.0,
+   "text": {
+    "en": "Jev answers in a blink: only 3% \"yes\"",
+    "es": "Jev responde al instante: solo 3% de \"sí\""
+   }
+  },
+  {
+   "t": 7.3,
+   "text": {
+    "en": "Wrong Lisbon! Jev is only 50% sure",
+    "es": "¡La Lisboa equivocada! Jev está 50/50"
+   }
+  },
+  {
+   "t": 9.0,
+   "text": {
+    "en": "Not sure? A person decides",
+    "es": "¿No está seguro? Decide una persona"
+   }
+  },
+  {
+   "t": 11.0,
+   "text": {
+    "en": "The same check for two robots",
+    "es": "La misma revisión para dos robots"
+   }
+  },
+  {
+   "t": 12.8,
+   "text": {
+    "en": "v2 may go. v1 is stopped.",
+    "es": "v2 puede seguir. v1 se frena."
+   }
+  }
+ ],
+ "actors": [
+  {
+   "t": 0.2,
+   "draw": "person",
+   "x": 110,
+   "y": 300,
+   "label": {
+    "en": "You",
+    "es": "Tú"
+   },
+   "out": 3.4
+  },
+  {
+   "t": 0.5,
+   "draw": "bubble",
+   "x": 280,
+   "y": 150,
+   "w": 320,
+   "lines": {
+    "en": [
+     "How much is 250 dollars",
+     "in euros?"
+    ],
+    "es": [
+     "¿Cuánto son 250 dólares",
+     "en euros?"
+    ]
+   },
+   "out": 3.4
+  },
+  {
+   "t": 1.0,
+   "draw": "robot",
+   "x": 480,
+   "y": 290,
+   "label": "TripDesk",
+   "out": 5.8
+  },
+  {
+   "t": 1.6,
+   "draw": "card",
+   "x": 790,
+   "y": 140,
+   "w": 260,
+   "h": 100,
+   "title": {
+    "en": "Money tool",
+    "es": "Herramienta de dinero"
+   },
+   "lines": [
+    "€219.24"
+   ],
+   "size": 26,
+   "out": 7.3
+  },
+  {
+   "t": 2.4,
+   "draw": "bubble",
+   "x": 770,
+   "y": 300,
+   "w": 260,
+   "lines": {
+    "en": [
+     "Robot answers:",
+     "€231.50"
+    ],
+    "es": [
+     "El robot responde:",
+     "€231.50"
+    ]
+   },
+   "size": 24,
+   "out": 7.3
+  },
+  {
+   "t": 3.5,
+   "draw": "calculator",
+   "x": 170,
+   "y": 290,
+   "label": {
+    "en": "Calculator",
+    "es": "Calculadora"
+   },
+   "out": 7.3
+  },
+  {
+   "t": 4.3,
+   "draw": "cross",
+   "x": 640,
+   "y": 420,
+   "r": 24,
+   "out": 7.3
+  },
+  {
+   "t": 4.3,
+   "draw": "label",
+   "x": 800,
+   "y": 428,
+   "lines": [
+    "231.50 ≠ 219.24"
+   ],
+   "size": 22,
+   "color": "coral",
+   "out": 7.3
+  },
+  {
+   "t": 5.0,
+   "draw": "meter",
+   "x": 330,
+   "y": 150,
+   "w": 230,
+   "p": 0.03,
+   "label": {
+    "en": "Jev: facts from the tool?",
+    "es": "Jev: ¿datos de la herramienta?"
+   },
+   "out": 7.3
+  },
+  {
+   "t": 5.8,
+   "draw": "robot",
+   "x": 480,
+   "y": 290,
+   "mood": "sad",
+   "label": "TripDesk",
+   "out": 7.3
+  },
+  {
+   "t": 7.5,
+   "draw": "card",
+   "x": 270,
+   "y": 175,
+   "w": 380,
+   "h": 120,
+   "title": {
+    "en": "Robot looked up",
+    "es": "El robot buscó"
+   },
+   "lines": {
+    "en": [
+     "Lisbon, Ohio (USA)",
+     "not Lisbon, Portugal"
+    ],
+    "es": [
+     "Lisboa, Ohio (EE. UU.)",
+     "y no Lisboa, Portugal"
+    ]
+   },
+   "color": "coral",
+   "size": 21,
+   "out": 11
+  },
+  {
+   "t": 8.2,
+   "draw": "meter",
+   "x": 250,
+   "y": 340,
+   "w": 260,
+   "p": 0.5,
+   "label": {
+    "en": "Jev: facts from the tool?",
+    "es": "Jev: ¿datos de la herramienta?"
+   },
+   "out": 11
+  },
+  {
+   "t": 9.2,
+   "draw": "person",
+   "x": 700,
+   "y": 300,
+   "label": {
+    "en": "A person checks",
+    "es": "Una persona revisa"
+   },
+   "out": 11
+  },
+  {
+   "t": 9.4,
+   "draw": "question",
+   "x": 700,
+   "y": 150,
+   "r": 34,
+   "out": 11
+  },
+  {
+   "t": 11.2,
+   "draw": "robot",
+   "x": 170,
+   "y": 280,
+   "label": {
+    "en": "v2: 94% good",
+    "es": "v2: 94% bien"
+   }
+  },
+  {
+   "t": 11.6,
+   "draw": "light",
+   "x": 350,
+   "y": 270,
+   "state": "green"
+  },
+  {
+   "t": 12.0,
+   "draw": "check",
+   "x": 350,
+   "y": 120,
+   "r": 30
+  },
+  {
+   "t": 12.2,
+   "draw": "robot",
+   "x": 620,
+   "y": 280,
+   "mood": "sad",
+   "label": {
+    "en": "v1: 18% good",
+    "es": "v1: 18% bien"
+   }
+  },
+  {
+   "t": 12.6,
+   "draw": "light",
+   "x": 800,
+   "y": 270,
+   "state": "red"
+  },
+  {
+   "t": 13.0,
+   "draw": "cross",
+   "x": 800,
+   "y": 120,
+   "r": 30
+  }
+ ]
+};
+const C = { navy: '#071B2B', deep: '#0D2638', panel: '#123448', grid: '#214456', mint: '#55DFBD', gold: '#FFC56E', coral: '#FB8176', white: '#F4F7F5', muted: '#ABC0C8', muted2: '#8FA6B0' };
+const q = new URLSearchParams(location.search);
+const LANG = q.get('lang') === 'es' ? 'es' : 'en';
+const T = (v) => (v && typeof v === 'object' && !Array.isArray(v) ? v[LANG] : v);
+const esc = (s) => String(T(s) ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const col = (k) => C[k] || k || C.mint;
+function text(x, y, s, size, fill, anchor = 'middle', weight = 700) {
+  return `<text x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${fill}" text-anchor="${anchor}">${esc(s)}</text>`;
+}
+function lines(x, y, arr, size, fill, anchor = 'middle', weight = 600, lh = 1.3) {
+  if (typeof arr === 'string') arr = [arr];
+  return (arr || []).map((s, i) => text(x, y + i * size * lh, s, size, fill, anchor, weight)).join('');
+}
+const D = {
+  robot(a) {
+    const c = col(a.color), m = a.mood || 'happy';
+    const mouth = m === 'happy' ? 'M-14,10 Q0,22 14,10' : m === 'sad' ? 'M-14,18 Q0,6 14,18' : 'M-12,14 L12,14';
+    const eyes = m === 'think' ? `<circle cx="-14" cy="-6" r="6" fill="${c}"/><rect x="8" y="-8" width="14" height="4" rx="2" fill="${c}"/>` : `<circle cx="-14" cy="-6" r="6" fill="${c}"/><circle cx="14" cy="-6" r="6" fill="${c}"/>`;
+    return `<line x1="0" y1="-52" x2="0" y2="-36" stroke="${c}" stroke-width="4"/><circle cx="0" cy="-56" r="7" fill="${c}"/>
+      <rect x="-42" y="-36" width="84" height="66" rx="16" fill="${C.deep}" stroke="${c}" stroke-width="4"/>${eyes}
+      <path d="${mouth}" fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round"/>
+      <rect x="-32" y="36" width="64" height="46" rx="12" fill="${C.panel}" stroke="${c}" stroke-width="4"/>
+      <rect x="-56" y="44" width="16" height="32" rx="8" fill="${C.panel}" stroke="${c}" stroke-width="3"/><rect x="40" y="44" width="16" height="32" rx="8" fill="${C.panel}" stroke="${c}" stroke-width="3"/>
+      ${a.label ? text(0, 112, a.label, 20, C.white) : ''}`;
+  },
+  person(a) {
+    const c = col(a.color || 'muted');
+    return `<circle cx="0" cy="-34" r="26" fill="${C.deep}" stroke="${c}" stroke-width="4"/>
+      <circle cx="-9" cy="-38" r="4" fill="${c}"/><circle cx="9" cy="-38" r="4" fill="${c}"/><path d="M-10,-24 Q0,-16 10,-24" fill="none" stroke="${c}" stroke-width="3" stroke-linecap="round"/>
+      <path d="M-40,48 Q-40,0 0,0 Q40,0 40,48 Z" fill="${C.panel}" stroke="${c}" stroke-width="4"/>
+      ${a.label ? text(0, 80, a.label, 20, C.white) : ''}`;
+  },
+  bubble(a) {
+    const w = a.w || 300, sz = a.size || 22, n = (T(a.lines) || []).length, h = a.h || 24 + n * sz * 1.3, c = col(a.color || 'grid');
+    const k = a.tail === 'right' ? -1 : 1, bx = k * (-w / 2 + 50);
+    const A = `${bx},${h / 2 - 2}`, B = `${bx - k * 24},${h / 2 + 24}`, E = `${bx + k * 30},${h / 2 - 2}`;
+    return `<rect x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}" rx="18" fill="${C.deep}" stroke="${c}" stroke-width="3"/>
+      <polygon points="${A} ${B} ${E}" fill="${C.deep}"/><polyline points="${A} ${B} ${E}" fill="none" stroke="${c}" stroke-width="3" stroke-linejoin="round"/>
+      ${lines(0, -h / 2 + 8 + sz, T(a.lines), sz, a.textColor ? col(a.textColor) : C.white)}`;
+  },
+  card(a) {
+    const w = a.w || 260, h = a.h || 120, c = col(a.color || 'grid');
+    return `<rect x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}" rx="16" fill="${C.deep}" stroke="${c}" stroke-width="${a.color ? 3 : 2}"/>
+      ${a.icon ? `<g transform="translate(${-w / 2 + 34},${-h / 2 + 34}) scale(0.5)">${D[a.icon]({ color: a.color })}</g>` : ''}
+      ${a.title ? text(a.icon ? -w / 2 + 64 : 0, -h / 2 + 38, a.title, a.titleSize || 22, C.white, a.icon ? 'start' : 'middle') : ''}
+      ${lines(a.icon ? -w / 2 + 20 : 0, -h / 2 + (a.title ? 72 : 40), T(a.lines), a.size || 19, C.muted, a.icon ? 'start' : 'middle', 600)}`;
+  },
+  check(a) { const r = a.r || 34; return `<circle r="${r}" fill="${C.mint}"/><path d="M${-r * 0.45},0 L${-r * 0.1},${r * 0.35} L${r * 0.5},${-r * 0.35}" fill="none" stroke="${C.navy}" stroke-width="${r * 0.2}" stroke-linecap="round" stroke-linejoin="round"/>${a.label ? text(0, r + 30, a.label, 20, C.white) : ''}`; },
+  cross(a) { const r = a.r || 34, k = r * 0.38; return `<circle r="${r}" fill="${C.coral}"/><path d="M${-k},${-k} L${k},${k} M${k},${-k} L${-k},${k}" stroke="${C.navy}" stroke-width="${r * 0.2}" stroke-linecap="round"/>${a.label ? text(0, r + 30, a.label, 20, C.white) : ''}`; },
+  bang(a) { const r = a.r || 34; return `<circle r="${r}" fill="${C.gold}"/><rect x="${-r * 0.1}" y="${-r * 0.55}" width="${r * 0.2}" height="${r * 0.6}" rx="${r * 0.1}" fill="${C.navy}"/><circle cy="${r * 0.38}" r="${r * 0.12}" fill="${C.navy}"/>${a.label ? text(0, r + 30, a.label, 20, C.white) : ''}`; },
+  question(a) { const r = a.r || 34; return `<circle r="${r}" fill="${C.gold}"/>${text(0, r * 0.38, '?', r * 1.2, C.navy)}${a.label ? text(0, r + 30, a.label, 20, C.white) : ''}`; },
+  light(a) {
+    const s = a.state;
+    const dot = (cy, on, c) => `<circle cx="0" cy="${cy}" r="22" fill="${on ? c : C.panel}" stroke="${C.grid}" stroke-width="2"/>`;
+    return `<rect x="-36" y="-92" width="72" height="184" rx="20" fill="${C.deep}" stroke="${C.grid}" stroke-width="3"/>${dot(-54, s === 'red', C.coral)}${dot(0, s === 'yellow', C.gold)}${dot(54, s === 'green', C.mint)}${a.label ? text(0, 126, a.label, 20, C.white) : ''}`;
+  },
+  magnifier(a) { const c = col(a.color); return `<circle cx="-8" cy="-8" r="30" fill="${C.deep}" stroke="${c}" stroke-width="7"/><line x1="14" y1="14" x2="42" y2="42" stroke="${c}" stroke-width="10" stroke-linecap="round"/>${a.label ? text(0, 82, a.label, 20, C.white) : ''}`; },
+  calculator(a) {
+    const c = col(a.color); let keys = '';
+    for (let r = 0; r < 3; r++) for (let k = 0; k < 3; k++) keys += `<rect x="${-30 + k * 22}" y="${-4 + r * 18}" width="16" height="12" rx="3" fill="${c}" opacity=".8"/>`;
+    return `<rect x="-42" y="-56" width="84" height="112" rx="12" fill="${C.deep}" stroke="${c}" stroke-width="4"/><rect x="-30" y="-44" width="60" height="28" rx="5" fill="${C.panel}"/>${keys}${a.label ? text(0, 88, a.label, 20, C.white) : ''}`;
+  },
+  meter(a) {
+    const w = a.w || 300, p = a.p, c = col(a.color || (p >= (a.hi ?? 0.65) ? 'mint' : p <= (a.lo ?? 0.35) ? 'coral' : 'gold'));
+    return `${a.label ? text(-w / 2, -18, a.label, 20, C.white, 'start') : ''}<rect x="${-w / 2}" y="-10" width="${w}" height="22" rx="11" fill="${C.panel}"/>
+      <rect x="${-w / 2}" y="-10" width="${Math.max(22, w * p)}" height="22" rx="11" fill="${c}"/>${text(w / 2 + 14, 9, a.value || Math.round(p * 100) + '%', 22, c, 'start')}`;
+  },
+  bin(a) {
+    const c = col(a.color), w = a.w || 150;
+    return `<path d="M${-w / 2},-40 L${w / 2},-40 L${w / 2 - 12},50 L${-w / 2 + 12},50 Z" fill="${C.deep}" stroke="${c}" stroke-width="4"/><rect x="${-w / 2 - 8}" y="-52" width="${w + 16}" height="14" rx="6" fill="${c}"/>
+      ${lines(0, 4, T(a.lines), a.size || 19, C.white)}`;
+  },
+  tile(a) { const c = col(a.color || 'grid'); return `<rect x="-11" y="-11" width="22" height="22" rx="5" fill="${a.fill ? c : C.deep}" stroke="${c}" stroke-width="2"/>`; },
+  screen(a) {
+    const w = a.w || 420, h = a.h || 170;
+    return `<rect x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}" rx="16" fill="${C.deep}" stroke="${C.grid}" stroke-width="3"/><rect x="${-w / 2}" y="${-h / 2}" width="${w}" height="34" rx="16" fill="${C.panel}"/><rect x="${-w / 2}" y="${-h / 2 + 18}" width="${w}" height="16" fill="${C.panel}"/>
+      <circle cx="${-w / 2 + 22}" cy="${-h / 2 + 17}" r="6" fill="${C.grid}"/><circle cx="${-w / 2 + 42}" cy="${-h / 2 + 17}" r="6" fill="${C.grid}"/><circle cx="${-w / 2 + 62}" cy="${-h / 2 + 17}" r="6" fill="${C.grid}"/>
+      ${lines(0, -h / 2 + 34 + 36, T(a.lines), a.size || 21, C.white)}`;
+  },
+  notebook(a) {
+    const c = col(a.color); let l = '';
+    for (let i = 0; i < 4; i++) l += `<line x1="-26" y1="${-26 + i * 16}" x2="30" y2="${-26 + i * 16}" stroke="${C.muted2}" stroke-width="3"/>`;
+    return `<rect x="-44" y="-54" width="88" height="108" rx="10" fill="${C.deep}" stroke="${c}" stroke-width="4"/>${l}<rect x="-44" y="-54" width="14" height="108" rx="6" fill="${c}"/>${a.label ? text(0, 84, a.label, 20, C.white) : ''}`;
+  },
+  arrow(a) { const c = col(a.color), len = a.len || 80; return `<line x1="0" y1="0" x2="${len - 14}" y2="0" stroke="${c}" stroke-width="7" stroke-linecap="round"/><path d="M${len - 20},-14 L${len},0 L${len - 20},14 Z" fill="${c}"/>`; },
+  label(a) { return lines(0, 0, T(a.lines) || [a.text], a.size || 22, col(a.color || 'white'), a.anchor || 'middle', a.weight || 700); },
+};
+function ease(p) { p = Math.max(0, Math.min(1, p)); return 1 - Math.pow(1 - p, 3); }
+function render(t) {
+  let out = `<defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="${C.mint}" stroke-opacity="0.06"/></pattern></defs>
+    <rect width="960" height="540" fill="${C.navy}"/><rect width="960" height="540" fill="url(#g)"/><rect width="6" height="540" fill="${C.mint}"/>`;
+  out += text(28, 40, STORY.title, 22, C.white, 'start') + text(28, 64, STORY.subtitle, 15, C.muted, 'start', 500);
+  out += text(932, 40, 'Cristian Guerra · QA · Medellín', 12, C.mint, 'end', 600);
+  let beat = null, bi = 0;
+  STORY.beats.forEach((b, i) => { if (t >= b.t) { beat = b; bi = i; } });
+  for (const a of STORY.actors) {
+    if (t < a.t || (a.out !== undefined && t >= a.out)) continue;
+    const pin = ease((t - a.t) / 0.35);
+    const pout = a.out !== undefined ? ease((a.out - t) / 0.25) : 1;
+    let x = a.x, y = a.y;
+    if (a.from) { const pm = ease((t - (a.move ? a.move[0] : a.t)) / ((a.move ? a.move[1] - a.move[0] : 0.6))); x = a.from[0] + (a.x - a.from[0]) * pm; y = a.from[1] + (a.y - a.from[1]) * pm; }
+    const s = (a.s || 1) * (0.7 + 0.3 * pin);
+    out += `<g transform="translate(${x},${y}) scale(${s})" opacity="${Math.min(pin, pout)}">${D[a.draw](a)}</g>`;
+  }
+  if (beat) {
+    const n = STORY.beats.length;
+    out += `<rect x="24" y="${STORY.captionY || 462}" width="912" height="56" rx="16" fill="${C.deep}" stroke="${C.grid}" stroke-width="2"/>`;
+    for (let i = 0; i < n; i++) out += `<circle cx="${52 + i * 18}" cy="${(STORY.captionY || 462) + 28}" r="6" fill="${i <= bi ? C.mint : C.grid}"/>`;
+    out += text(52 + n * 18 + 10, (STORY.captionY || 462) + 37, beat.text, 24, C.white, 'start');
+  }
+  document.getElementById('stage').innerHTML = out;
+}
+render(q.has('t') ? parseFloat(q.get('t')) : STORY.duration - 0.5);
+</script>
+</body>
+</html>
